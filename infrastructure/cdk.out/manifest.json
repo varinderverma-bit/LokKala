@@ -1,0 +1,431 @@
+{
+  "version": "38.0.1",
+  "artifacts": {
+    "ArtMarketplaceStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ArtMarketplaceStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ArtMarketplaceStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://022706514418/us-east-1",
+      "properties": {
+        "templateFile": "ArtMarketplaceStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::022706514418:role/cdk-hnb659fds-deploy-role-022706514418-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::022706514418:role/cdk-hnb659fds-cfn-exec-role-022706514418-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-022706514418-us-east-1/0e0c76a232c289537ac861545326d60212608bb9f118f6ab2f2ef4839dc73e40.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ArtMarketplaceStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::022706514418:role/cdk-hnb659fds-lookup-role-022706514418-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ArtMarketplaceStack.assets"
+      ],
+      "metadata": {
+        "/ArtMarketplaceStack": [
+          {
+            "type": "aws:cdk:error",
+            "data": "Need to perform AWS calls for account 022706514418, but no credentials have been configured",
+            "trace": [
+              "Annotations.addMessage (/Users/varinderverma/my_ai_project/infrastructure/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addError (/Users/varinderverma/my_ai_project/infrastructure/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1100)",
+              "Function.getValue (/Users/varinderverma/my_ai_project/infrastructure/node_modules/aws-cdk-lib/core/lib/context-provider.js:2:1314)",
+              "ArtMarketplaceStack.get availabilityZones [as availabilityZones] (/Users/varinderverma/my_ai_project/infrastructure/node_modules/aws-cdk-lib/core/lib/stack.js:1:10650)",
+              "new Vpc (/Users/varinderverma/my_ai_project/infrastructure/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:12717)",
+              "new ArtMarketplaceStack (/Users/varinderverma/my_ai_project/infrastructure/lib/art-marketplace-stack.ts:20:17)",
+              "Object.<anonymous> (/Users/varinderverma/my_ai_project/infrastructure/bin/app.ts:6:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1521:14)",
+              "Module.m._compile (/Users/varinderverma/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/index.ts:1618:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1623:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/varinderverma/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/index.ts:1621:12)",
+              "Module.load (node:internal/modules/cjs/loader:1266:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:1091:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)",
+              "phase4 (/Users/varinderverma/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/bin.ts:649:14)",
+              "bootstrap (/Users/varinderverma/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/bin.ts:95:10)",
+              "main (/Users/varinderverma/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/bin.ts:55:10)",
+              "Object.<anonymous> (/Users/varinderverma/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/bin.ts:800:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1521:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1623:10)",
+              "Module.load (node:internal/modules/cjs/loader:1266:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:1091:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)",
+              "node:internal/main/run_main_module:28:49"
+            ]
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcA6781435"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet1Subnet1892E18A"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet1RouteTable967F7104"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet1RouteTableAssociationC6AA7999"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet1DefaultRouteDC36AEB7"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet1EIP4FEDA700"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet1NATGatewayA4FF8739"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet2Subnet8BE0F83D"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet2RouteTableA0AEA7D1"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet2RouteTableAssociationDD9592FB"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPublicSubnet2DefaultRoute3083EB90"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPrivateSubnet1Subnet863A440E"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPrivateSubnet1RouteTable167F2CCA"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPrivateSubnet1RouteTableAssociation7EB8B4DA"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPrivateSubnet1DefaultRoute264621FF"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPrivateSubnet2SubnetE2AACAD7"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPrivateSubnet2RouteTableE078E703"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPrivateSubnet2RouteTableAssociationDA6467FC"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcPrivateSubnet2DefaultRoute2AEAEC87"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcIGW8C951991"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceVpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceVpcVPCGW2B86FBD9"
+          }
+        ],
+        "/ArtMarketplaceStack/PaintingsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PaintingsBucketE7A48EC0"
+          }
+        ],
+        "/ArtMarketplaceStack/PaintingsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PaintingsBucketPolicyB5800717"
+          }
+        ],
+        "/ArtMarketplaceStack/PaintingsTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PaintingsTable8531BADD"
+          }
+        ],
+        "/ArtMarketplaceStack/RedisSubnetGroup": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisSubnetGroup"
+          }
+        ],
+        "/ArtMarketplaceStack/RedisSg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisSgFB48DCCD"
+          }
+        ],
+        "/ArtMarketplaceStack/RedisSg/from ArtMarketplaceStackEc2Sg4CC3BDF8:6379": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisSgfromArtMarketplaceStackEc2Sg4CC3BDF86379A27343A0"
+          }
+        ],
+        "/ArtMarketplaceStack/RedisCluster": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisCluster"
+          }
+        ],
+        "/ArtMarketplaceStack/AlbSg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlbSg1155C1BE"
+          }
+        ],
+        "/ArtMarketplaceStack/Ec2Sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Ec2SgF43886FE"
+          }
+        ],
+        "/ArtMarketplaceStack/Ec2Sg/from ArtMarketplaceStackAlbSgE51855AC:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Ec2SgfromArtMarketplaceStackAlbSgE51855AC80119CD2E5"
+          }
+        ],
+        "/ArtMarketplaceStack/Ec2Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Ec2Role2FD9A272"
+          }
+        ],
+        "/ArtMarketplaceStack/Ec2Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Ec2RoleDefaultPolicy99BC91F7"
+          }
+        ],
+        "/ArtMarketplaceStack/AppInstance/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AppInstanceInstanceProfileC6B6EFAA"
+          }
+        ],
+        "/ArtMarketplaceStack/AppInstance/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AppInstance13C82D50"
+          }
+        ],
+        "/ArtMarketplaceStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/ArtMarketplaceStack/Alb/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Alb16C2F182"
+          }
+        ],
+        "/ArtMarketplaceStack/Alb/HttpListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlbHttpListener00C8B33E"
+          }
+        ],
+        "/ArtMarketplaceStack/AlbTargetGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlbTargetGroup40F9FCBA"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceApi2A6E120C"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceApi/DefaultRoute/AlbIntegration/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceApiDefaultRouteAlbIntegrationBD48C349"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceApi/DefaultRoute/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceApiDefaultRoute1793A2C1"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceApi/VpcLink-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceApiVpcLink17DDB2D2F"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceApi/DefaultStage/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceApiDefaultStage8080A06D"
+          }
+        ],
+        "/ArtMarketplaceStack/ArtMarketplaceApi/ANY--{proxy+}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ArtMarketplaceApiANYproxy49CD42D4"
+          }
+        ],
+        "/ArtMarketplaceStack/Distribution/Origin2/S3Origin/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DistributionOrigin2S3OriginE484D4BF"
+          }
+        ],
+        "/ArtMarketplaceStack/Distribution/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Distribution830FAC52"
+          }
+        ],
+        "/ArtMarketplaceStack/AppUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AppUrl"
+          }
+        ],
+        "/ArtMarketplaceStack/ApiUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiUrl"
+          }
+        ],
+        "/ArtMarketplaceStack/PaintingsBucketName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PaintingsBucketName"
+          }
+        ],
+        "/ArtMarketplaceStack/PaintingsTableName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PaintingsTableName"
+          }
+        ],
+        "/ArtMarketplaceStack/RedisEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisEndpoint"
+          }
+        ],
+        "/ArtMarketplaceStack/InstanceId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "InstanceId"
+          }
+        ],
+        "/ArtMarketplaceStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ArtMarketplaceStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ArtMarketplaceStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ArtMarketplaceStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  },
+  "missing": [
+    {
+      "key": "availability-zones:account=022706514418:region=us-east-1",
+      "provider": "availability-zones",
+      "props": {
+        "dummyValue": [
+          "dummy1a",
+          "dummy1b",
+          "dummy1c"
+        ],
+        "account": "022706514418",
+        "region": "us-east-1",
+        "lookupRoleArn": "arn:${AWS::Partition}:iam::022706514418:role/cdk-hnb659fds-lookup-role-022706514418-us-east-1"
+      }
+    }
+  ]
+}

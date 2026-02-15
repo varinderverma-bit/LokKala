@@ -1,0 +1,1310 @@
+{
+ "Description": "Art Marketplace: EC2, ALB, API Gateway, CloudFront, S3, DynamoDB, Redis",
+ "Resources": {
+  "ArtMarketplaceVpcA6781435": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/Resource"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet1Subnet1892E18A": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1a",
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/Subnet"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet1RouteTable967F7104": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet1RouteTableAssociationC6AA7999": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet1RouteTable967F7104"
+    },
+    "SubnetId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet1Subnet1892E18A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet1DefaultRouteDC36AEB7": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "ArtMarketplaceVpcIGW8C951991"
+    },
+    "RouteTableId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet1RouteTable967F7104"
+    }
+   },
+   "DependsOn": [
+    "ArtMarketplaceVpcVPCGW2B86FBD9"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet1EIP4FEDA700": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/EIP"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet1NATGatewayA4FF8739": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "ArtMarketplaceVpcPublicSubnet1EIP4FEDA700",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet1Subnet1892E18A"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "ArtMarketplaceVpcPublicSubnet1DefaultRouteDC36AEB7",
+    "ArtMarketplaceVpcPublicSubnet1RouteTableAssociationC6AA7999"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet2Subnet8BE0F83D": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1b",
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/Subnet"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet2RouteTableA0AEA7D1": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet2RouteTableAssociationDD9592FB": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet2RouteTableA0AEA7D1"
+    },
+    "SubnetId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet2Subnet8BE0F83D"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "ArtMarketplaceVpcPublicSubnet2DefaultRoute3083EB90": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "ArtMarketplaceVpcIGW8C951991"
+    },
+    "RouteTableId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet2RouteTableA0AEA7D1"
+    }
+   },
+   "DependsOn": [
+    "ArtMarketplaceVpcVPCGW2B86FBD9"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "ArtMarketplaceVpcPrivateSubnet1Subnet863A440E": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1a",
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "ArtMarketplaceVpcPrivateSubnet1RouteTable167F2CCA": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "ArtMarketplaceVpcPrivateSubnet1RouteTableAssociation7EB8B4DA": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "ArtMarketplaceVpcPrivateSubnet1RouteTable167F2CCA"
+    },
+    "SubnetId": {
+     "Ref": "ArtMarketplaceVpcPrivateSubnet1Subnet863A440E"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "ArtMarketplaceVpcPrivateSubnet1DefaultRoute264621FF": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet1NATGatewayA4FF8739"
+    },
+    "RouteTableId": {
+     "Ref": "ArtMarketplaceVpcPrivateSubnet1RouteTable167F2CCA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "ArtMarketplaceVpcPrivateSubnet2SubnetE2AACAD7": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1b",
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "ArtMarketplaceVpcPrivateSubnet2RouteTableE078E703": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "ArtMarketplaceVpcPrivateSubnet2RouteTableAssociationDA6467FC": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "ArtMarketplaceVpcPrivateSubnet2RouteTableE078E703"
+    },
+    "SubnetId": {
+     "Ref": "ArtMarketplaceVpcPrivateSubnet2SubnetE2AACAD7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "ArtMarketplaceVpcPrivateSubnet2DefaultRoute2AEAEC87": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "ArtMarketplaceVpcPublicSubnet1NATGatewayA4FF8739"
+    },
+    "RouteTableId": {
+     "Ref": "ArtMarketplaceVpcPrivateSubnet2RouteTableE078E703"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "ArtMarketplaceVpcIGW8C951991": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/ArtMarketplaceVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/IGW"
+   }
+  },
+  "ArtMarketplaceVpcVPCGW2B86FBD9": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "ArtMarketplaceVpcIGW8C951991"
+    },
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceVpc/VPCGW"
+   }
+  },
+  "PaintingsBucketE7A48EC0": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/PaintingsBucket/Resource"
+   }
+  },
+  "PaintingsBucketPolicyB5800717": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "PaintingsBucketE7A48EC0"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Principal": {
+        "CanonicalUser": {
+         "Fn::GetAtt": [
+          "DistributionOrigin2S3OriginE484D4BF",
+          "S3CanonicalUserId"
+         ]
+        }
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "PaintingsBucketE7A48EC0",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/PaintingsBucket/Policy/Resource"
+   }
+  },
+  "PaintingsTable8531BADD": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "id",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "regionId",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "createdAt",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "regionId-createdAt-index",
+      "KeySchema": [
+       {
+        "AttributeName": "regionId",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "createdAt",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "id",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "regionId",
+      "KeyType": "RANGE"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/PaintingsTable/Resource"
+   }
+  },
+  "RedisSubnetGroup": {
+   "Type": "AWS::ElastiCache::SubnetGroup",
+   "Properties": {
+    "CacheSubnetGroupName": "art-marketplace-redis-026c45d1",
+    "Description": "Subnet group for Redis cache",
+    "SubnetIds": [
+     {
+      "Ref": "ArtMarketplaceVpcPrivateSubnet1Subnet863A440E"
+     },
+     {
+      "Ref": "ArtMarketplaceVpcPrivateSubnet2SubnetE2AACAD7"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/RedisSubnetGroup"
+   }
+  },
+  "RedisSgFB48DCCD": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for Redis",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "from 0.0.0.0/0:ALL PORTS",
+      "FromPort": 0,
+      "IpProtocol": "tcp",
+      "ToPort": 65535
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/RedisSg/Resource"
+   }
+  },
+  "RedisSgfromArtMarketplaceStackEc2Sg4CC3BDF86379A27343A0": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "From EC2",
+    "FromPort": 6379,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "RedisSgFB48DCCD",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "Ec2SgF43886FE",
+      "GroupId"
+     ]
+    },
+    "ToPort": 6379
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/RedisSg/from ArtMarketplaceStackEc2Sg4CC3BDF8:6379"
+   }
+  },
+  "RedisCluster": {
+   "Type": "AWS::ElastiCache::CacheCluster",
+   "Properties": {
+    "CacheNodeType": "cache.t3.micro",
+    "CacheSubnetGroupName": {
+     "Ref": "RedisSubnetGroup"
+    },
+    "Engine": "redis",
+    "NumCacheNodes": 1,
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "RedisSgFB48DCCD",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "DependsOn": [
+    "RedisSubnetGroup"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/RedisCluster"
+   }
+  },
+  "AlbSg1155C1BE": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ALB security group",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "HTTP",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "HTTPS",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/AlbSg/Resource"
+   }
+  },
+  "Ec2SgF43886FE": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "EC2 app server security group",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/Ec2Sg/Resource"
+   }
+  },
+  "Ec2SgfromArtMarketplaceStackAlbSgE51855AC80119CD2E5": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "From ALB",
+    "FromPort": 80,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "Ec2SgF43886FE",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "AlbSg1155C1BE",
+      "GroupId"
+     ]
+    },
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/Ec2Sg/from ArtMarketplaceStackAlbSgE51855AC:80"
+   }
+  },
+  "Ec2Role2FD9A272": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonSSMManagedInstanceCore"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/Ec2Role/Resource"
+   }
+  },
+  "Ec2RoleDefaultPolicy99BC91F7": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "PaintingsBucketE7A48EC0",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "PaintingsBucketE7A48EC0",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "PaintingsTable8531BADD",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "PaintingsTable8531BADD",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "Ec2RoleDefaultPolicy99BC91F7",
+    "Roles": [
+     {
+      "Ref": "Ec2Role2FD9A272"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/Ec2Role/DefaultPolicy/Resource"
+   }
+  },
+  "AppInstanceInstanceProfileC6B6EFAA": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "Ec2Role2FD9A272"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/AppInstance/InstanceProfile"
+   }
+  },
+  "AppInstance13C82D50": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": "dummy1a",
+    "IamInstanceProfile": {
+     "Ref": "AppInstanceInstanceProfileC6B6EFAA"
+    },
+    "ImageId": {
+     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "InstanceType": "t3.small",
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "Ec2SgF43886FE",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetId": {
+     "Ref": "ArtMarketplaceVpcPrivateSubnet1Subnet863A440E"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ArtMarketplaceStack/AppInstance"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": "#!/bin/bash\nyum update -y\nyum install -y nginx\necho \"<!DOCTYPE html><html><body><h1>Art Marketplace</h1><p>Deploy your Vite build to /usr/share/nginx/html</p></body></html>\" > /usr/share/nginx/html/index.html\nsystemctl enable nginx\nsystemctl start nginx"
+    }
+   },
+   "DependsOn": [
+    "Ec2RoleDefaultPolicy99BC91F7",
+    "Ec2Role2FD9A272"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/AppInstance/Resource"
+   }
+  },
+  "Alb16C2F182": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "AlbSg1155C1BE",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     {
+      "Ref": "ArtMarketplaceVpcPublicSubnet1Subnet1892E18A"
+     },
+     {
+      "Ref": "ArtMarketplaceVpcPublicSubnet2Subnet8BE0F83D"
+     }
+    ],
+    "Type": "application"
+   },
+   "DependsOn": [
+    "ArtMarketplaceVpcPublicSubnet1DefaultRouteDC36AEB7",
+    "ArtMarketplaceVpcPublicSubnet1RouteTableAssociationC6AA7999",
+    "ArtMarketplaceVpcPublicSubnet2DefaultRoute3083EB90",
+    "ArtMarketplaceVpcPublicSubnet2RouteTableAssociationDD9592FB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/Alb/Resource"
+   }
+  },
+  "AlbHttpListener00C8B33E": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "AlbTargetGroup40F9FCBA"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "Alb16C2F182"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/Alb/HttpListener/Resource"
+   }
+  },
+  "AlbTargetGroup40F9FCBA": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckIntervalSeconds": 30,
+    "HealthCheckPath": "/",
+    "HealthCheckTimeoutSeconds": 5,
+    "HealthyThresholdCount": 2,
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "instance",
+    "Targets": [
+     {
+      "Id": {
+       "Ref": "AppInstance13C82D50"
+      },
+      "Port": 80
+     }
+    ],
+    "UnhealthyThresholdCount": 3,
+    "VpcId": {
+     "Ref": "ArtMarketplaceVpcA6781435"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/AlbTargetGroup/Resource"
+   }
+  },
+  "ArtMarketplaceApi2A6E120C": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "CorsConfiguration": {
+     "AllowHeaders": [
+      "Content-Type",
+      "Authorization"
+     ],
+     "AllowMethods": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE"
+     ],
+     "AllowOrigins": [
+      "*"
+     ]
+    },
+    "Description": "API for Art Marketplace (paintings, regions, artists)",
+    "Name": "art-marketplace-api",
+    "ProtocolType": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceApi/Resource"
+   }
+  },
+  "ArtMarketplaceApiDefaultRouteAlbIntegrationBD48C349": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ArtMarketplaceApi2A6E120C"
+    },
+    "ConnectionId": {
+     "Ref": "ArtMarketplaceApiVpcLink17DDB2D2F"
+    },
+    "ConnectionType": "VPC_LINK",
+    "IntegrationMethod": "ANY",
+    "IntegrationType": "HTTP_PROXY",
+    "IntegrationUri": {
+     "Ref": "AlbHttpListener00C8B33E"
+    },
+    "PayloadFormatVersion": "1.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultRoute/AlbIntegration/Resource"
+   }
+  },
+  "ArtMarketplaceApiDefaultRoute1793A2C1": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ArtMarketplaceApi2A6E120C"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "$default",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ArtMarketplaceApiDefaultRouteAlbIntegrationBD48C349"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultRoute/Resource"
+   }
+  },
+  "ArtMarketplaceApiVpcLink17DDB2D2F": {
+   "Type": "AWS::ApiGatewayV2::VpcLink",
+   "Properties": {
+    "Name": "ArtMarketplaceStackArtMarketplaceApiVpcLink13BAC5486",
+    "SecurityGroupIds": [],
+    "SubnetIds": [
+     {
+      "Ref": "ArtMarketplaceVpcPrivateSubnet1Subnet863A440E"
+     },
+     {
+      "Ref": "ArtMarketplaceVpcPrivateSubnet2SubnetE2AACAD7"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceApi/VpcLink-1/Resource"
+   }
+  },
+  "ArtMarketplaceApiDefaultStage8080A06D": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ArtMarketplaceApi2A6E120C"
+    },
+    "AutoDeploy": true,
+    "StageName": "$default"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultStage/Resource"
+   }
+  },
+  "ArtMarketplaceApiANYproxy49CD42D4": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ArtMarketplaceApi2A6E120C"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "ANY /{proxy+}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ArtMarketplaceApiDefaultRouteAlbIntegrationBD48C349"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/ArtMarketplaceApi/ANY--{proxy+}/Resource"
+   }
+  },
+  "DistributionOrigin2S3OriginE484D4BF": {
+   "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+   "Properties": {
+    "CloudFrontOriginAccessIdentityConfig": {
+     "Comment": "Identity for ArtMarketplaceStackDistributionOrigin2ED2DE548"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/Distribution/Origin2/S3Origin/Resource"
+   }
+  },
+  "Distribution830FAC52": {
+   "Type": "AWS::CloudFront::Distribution",
+   "Properties": {
+    "DistributionConfig": {
+     "CacheBehaviors": [
+      {
+       "AllowedMethods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+       ],
+       "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+       "Compress": true,
+       "PathPattern": "/paintings/*",
+       "TargetOriginId": "ArtMarketplaceStackDistributionOrigin2ED2DE548",
+       "ViewerProtocolPolicy": "redirect-to-https"
+      }
+     ],
+     "CustomErrorResponses": [
+      {
+       "ErrorCachingMinTTL": 0,
+       "ErrorCode": 404,
+       "ResponseCode": 200,
+       "ResponsePagePath": "/index.html"
+      },
+      {
+       "ErrorCachingMinTTL": 0,
+       "ErrorCode": 403,
+       "ResponseCode": 200,
+       "ResponsePagePath": "/index.html"
+      }
+     ],
+     "DefaultCacheBehavior": {
+      "AllowedMethods": [
+       "GET",
+       "HEAD",
+       "OPTIONS"
+      ],
+      "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+      "Compress": true,
+      "TargetOriginId": "ArtMarketplaceStackDistributionOrigin140002B03",
+      "ViewerProtocolPolicy": "redirect-to-https"
+     },
+     "DefaultRootObject": "index.html",
+     "Enabled": true,
+     "HttpVersion": "http2",
+     "IPV6Enabled": true,
+     "Origins": [
+      {
+       "CustomOriginConfig": {
+        "OriginProtocolPolicy": "http-only",
+        "OriginSSLProtocols": [
+         "TLSv1.2"
+        ]
+       },
+       "DomainName": {
+        "Fn::GetAtt": [
+         "Alb16C2F182",
+         "DNSName"
+        ]
+       },
+       "Id": "ArtMarketplaceStackDistributionOrigin140002B03",
+       "OriginCustomHeaders": [
+        {
+         "HeaderName": "X-Forwarded-Host",
+         "HeaderValue": "art-marketplace"
+        }
+       ]
+      },
+      {
+       "DomainName": {
+        "Fn::GetAtt": [
+         "PaintingsBucketE7A48EC0",
+         "RegionalDomainName"
+        ]
+       },
+       "Id": "ArtMarketplaceStackDistributionOrigin2ED2DE548",
+       "S3OriginConfig": {
+        "OriginAccessIdentity": {
+         "Fn::Join": [
+          "",
+          [
+           "origin-access-identity/cloudfront/",
+           {
+            "Ref": "DistributionOrigin2S3OriginE484D4BF"
+           }
+          ]
+         ]
+        }
+       }
+      }
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/Distribution/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31TwW7bMAz9lt0VLfMOO7ve1hkoViMpch1omXHZyJIhUQkCw/8+yHJtb8B24nvkE0mQVCY/fdnL/Qe4+Z1qLjtNtRyODOoi4OZ/DagyOZx6JYqzOVWFqEKtSR1DbZCjb0UHGxhfoNa4+ldf7r1VBEzWLOIIvpVVND+BH4HxBndROboC45q4NIzO4CJIncwsZwb12qFhcUQVHPH90dnQTz3811Ga1qH3ojSewShMpRIehf8sh4egLqmFGSVTWU3qvroTH0VzN9DZppbDMoUJjAI1eCYF6hXlsAxnaauIgUIHz+hGQdDJ4WBTgsmuBVf03mnl7Jk2NbSFpgYNRpFpr5kc8r7XpKbBP1loHqYYupjjD77VkWc0s+Ydb+Iv4NpN+xs6CuipTZuJxX8w93lPURVNpGnzEcW9tm45ib9o0p169UTmMu18hvHpkaFNZxbBKJS2oTk7a1gOX8mzozpMiZ4dtWRypdD7skHDxNP4ivjge3zwL8U2zTiKA3obXLqSChx0yGlAz4H7kD7ALBmFsQ3KN//xmu1lFn/XmyfauWCYOpSHZH8D8GHsC3oDAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "ArtMarketplaceStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+   "Default": "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Outputs": {
+  "AppUrl": {
+   "Description": "Application URL (CloudFront CDN)",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Fn::GetAtt": [
+        "Distribution830FAC52",
+        "DomainName"
+       ]
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "ArtMarketplaceAppUrl"
+   }
+  },
+  "ApiUrl": {
+   "Description": "API Gateway URL (use for /api calls; put behind CloudFront or call directly)",
+   "Value": {
+    "Fn::GetAtt": [
+     "ArtMarketplaceApi2A6E120C",
+     "ApiEndpoint"
+    ]
+   },
+   "Export": {
+    "Name": "ArtMarketplaceApiUrl"
+   }
+  },
+  "PaintingsBucketName": {
+   "Description": "S3 bucket for painting images",
+   "Value": {
+    "Ref": "PaintingsBucketE7A48EC0"
+   },
+   "Export": {
+    "Name": "ArtMarketplacePaintingsBucket"
+   }
+  },
+  "PaintingsTableName": {
+   "Description": "DynamoDB table for paintings metadata",
+   "Value": {
+    "Ref": "PaintingsTable8531BADD"
+   },
+   "Export": {
+    "Name": "ArtMarketplacePaintingsTable"
+   }
+  },
+  "RedisEndpoint": {
+   "Description": "Redis (ElastiCache) endpoint for cache",
+   "Value": {
+    "Fn::GetAtt": [
+     "RedisCluster",
+     "RedisEndpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "ArtMarketplaceRedisEndpoint"
+   }
+  },
+  "InstanceId": {
+   "Description": "EC2 instance ID (app host)",
+   "Value": {
+    "Ref": "AppInstance13C82D50"
+   },
+   "Export": {
+    "Name": "ArtMarketplaceInstanceId"
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

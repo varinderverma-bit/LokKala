@@ -1,0 +1,20 @@
+{
+  "version": "38.0.1",
+  "files": {
+    "0e0c76a232c289537ac861545326d60212608bb9f118f6ab2f2ef4839dc73e40": {
+      "source": {
+        "path": "ArtMarketplaceStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "022706514418-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-022706514418-us-east-1",
+          "objectKey": "0e0c76a232c289537ac861545326d60212608bb9f118f6ab2f2ef4839dc73e40.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::022706514418:role/cdk-hnb659fds-file-publishing-role-022706514418-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
