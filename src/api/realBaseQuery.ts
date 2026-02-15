@@ -1,6 +1,7 @@
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
 import { API_BASE_URL, lokkalaUrl } from './config';
 import type { ArtItem, ArtListQuery, PaginatedResponse } from '@/types';
+import { logger } from '@/utils/logger';
 
 type RealQueryArg =
   | { type: 'getArtList'; query: ArtListQuery }
@@ -52,7 +53,9 @@ export const realBaseQuery: BaseQueryFn<
       const url = `${lokkalaUrl('/artifacts')}?${params.toString()}`;
       const res = await fetch(url);
       if (!res.ok) {
-        return { error: { status: res.status, data: await res.text() } };
+        const errorData = await res.text();
+        logger.error('API request failed', { url, status: res.status, type: 'getArtList', errorData });
+        return { error: { status: res.status, data: errorData } };
       }
       const data = (await res.json()) as { items?: unknown[]; total?: number; page?: number; pageSize?: number; totalPages?: number };
       const items = (data.items || []).map(mapBffItemToArtItem);
@@ -69,14 +72,21 @@ export const realBaseQuery: BaseQueryFn<
       const url = lokkalaUrl(`/artifacts/${arg.id}`);
       const res = await fetch(url);
       if (!res.ok) {
-        if (res.status === 404) return { error: { status: 404, data: 'Not found' } };
-        return { error: { status: res.status, data: await res.text() } };
+        const errorData = await res.text();
+        if (res.status === 404) {
+          logger.debug('Art not found', { id: arg.id });
+          return { error: { status: 404, data: 'Not found' } };
+        }
+        logger.error('API request failed', { url, status: res.status, type: 'getArtById', id: arg.id, errorData });
+        return { error: { status: res.status, data: errorData } };
       }
       const item = (await res.json()) as Record<string, unknown>;
       return { data: mapBffItemToArtItem(item) };
     }
     return { error: { status: 400, data: 'Unknown query type' } };
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
+    logger.error('API request threw', { type, error: err.message, stack: err.stack });
     return { error: { status: 0, data: String(e) } };
   }
 };

@@ -19,8 +19,9 @@ export function OrderSuccessPage() {
         </ul>
       </div>
       <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-        <Link to="/explore"><Button>Continue Shopping</Button></Link>
-        <Link to="/"><Button variant="outline">Back to Home</Button></Link>
+        <Link to={`/orders/${orderId}`}><Button>View order</Button></Link>
+        <Link to="/orders"><Button variant="secondary">My orders</Button></Link>
+        <Link to="/explore"><Button variant="outline">Continue Shopping</Button></Link>
       </div>
     </div>
   );

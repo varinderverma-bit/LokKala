@@ -79,3 +79,42 @@ export interface PaginatedResponse<T> {
   pageSize: number;
   totalPages: number;
 }
+
+/** Placed order (mock; stored in Redux until backend is connected) */
+export interface OrderItem {
+  artId: string;
+  title: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Order {
+  orderId: string;
+  userId: string | null;
+  email: string;
+  items: OrderItem[];
+  total: number;
+  currency: string;
+  status: string;
+  shippingAddress: { fullName: string; address: string; city: string; zip: string; country: string };
+  createdAt: string;
+}
+
+/** User-submitted artifact (no backend; stored in Redux) */
+export interface SubmittedArt {
+  id: string;
+  title: string;
+  creatorName: string;
+  medium: string;
+  dimensions: string;
+  yearCreated: number;
+  technique: string;
+  materials: string;
+  imageUrl: string;
+  regionId: string;
+  personalStory: string;
+  regionStory: string;
+  significance: string[];
+  tags: string[];
+  createdAt: string;
+}

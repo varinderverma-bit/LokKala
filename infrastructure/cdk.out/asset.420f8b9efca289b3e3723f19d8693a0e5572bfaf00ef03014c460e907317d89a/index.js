@@ -2,7 +2,6 @@
 
 const AWS = require('aws-sdk');
 const doc = new AWS.DynamoDB.DocumentClient();
-const logger = require('./logger');
 
 const READ_MODEL_TABLE = process.env.READ_MODEL_TABLE_NAME;
 
@@ -49,9 +48,6 @@ exports.handler = async (event) => {
     throw new Error('READ_MODEL_TABLE_NAME not set');
   }
 
-  const recordCount = (event.Records || []).length;
-  logger.info('Processing DynamoDB stream', { recordCount });
-
   const results = { processed: 0, failed: 0 };
 
   for (const record of event.Records || []) {
@@ -83,11 +79,10 @@ exports.handler = async (event) => {
       }
     } catch (err) {
       results.failed++;
-      logger.error('Record processing failed', { eventID: record.eventID, error: err.message });
+      console.error('Record failed:', record.eventID, err);
       throw err;
     }
   }
 
-  logger.info('Stream processing complete', { ...results, recordCount });
   return results;
 };

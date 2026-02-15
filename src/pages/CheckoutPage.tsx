@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '@/app/hooks';
 import { selectCartItems, selectCartTotals } from '@/features/cart/selectors';
+import { selectIsBuyer, selectAuthUser } from '@/features/auth/selectors';
 import { clearCart } from '@/features/cart/cartSlice';
+import { addOrder } from '@/features/orders/ordersSlice';
 import { addToast } from '@/features/ui/uiSlice';
 import { Button, Input } from '@/components/ui';
 import { formatCurrency } from '@/utils/currency';
@@ -14,7 +16,17 @@ export function CheckoutPage() {
   const dispatch = useAppDispatch();
   const items = useAppSelector(selectCartItems);
   const totals = useAppSelector(selectCartTotals);
-  const [form, setForm] = useState({ fullName: '', email: '', address: '', city: '', zip: '', country: '', shippingMethod: 'standard' });
+  const isBuyer = useAppSelector(selectIsBuyer);
+  const authUser = useAppSelector(selectAuthUser);
+  const [form, setForm] = useState({
+    fullName: '',
+    email: authUser?.email ?? '',
+    address: '',
+    city: '',
+    zip: '',
+    country: '',
+    shippingMethod: 'standard',
+  });
   const [errors, setErrors] = useState<FormErrors>({});
 
   const validate = (): boolean => {
@@ -34,6 +46,29 @@ export function CheckoutPage() {
     e.preventDefault();
     if (!validate()) return;
     const orderId = `ORD-${Date.now()}`;
+    const orderItems = items.map((i) => ({
+      artId: i.artId,
+      title: i.art.title,
+      quantity: i.quantity,
+      price: i.art.price * i.quantity,
+    }));
+    dispatch(
+      addOrder({
+        orderId,
+        userId: authUser?.role === 'buyer' ? authUser.userId : null,
+        email: form.email.trim(),
+        items: orderItems,
+        total: totals.total,
+        currency: 'USD',
+        shippingAddress: {
+          fullName: form.fullName.trim(),
+          address: form.address.trim(),
+          city: form.city.trim(),
+          zip: form.zip.trim(),
+          country: form.country.trim(),
+        },
+      })
+    );
     dispatch(clearCart());
     dispatch(addToast({ message: 'Order placed!', type: 'success' }));
     navigate(`/order-success?orderId=${orderId}`);
@@ -51,6 +86,26 @@ export function CheckoutPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="font-display text-2xl font-bold text-primary-900 dark:text-white sm:text-3xl">Checkout</h1>
+
+      {isBuyer && authUser && (
+        <div className="mt-6 rounded-xl border border-primary-200 bg-primary-50 p-4 dark:border-gray-700 dark:bg-gray-800">
+          <p className="text-sm font-medium text-primary-900 dark:text-white">Checking out as {authUser.email}</p>
+          <p className="mt-1 text-sm text-primary-600 dark:text-primary-400">Your order will be linked to your account.</p>
+        </div>
+      )}
+      {!isBuyer && (
+        <div className="mt-6 rounded-xl border border-primary-200 bg-primary-50 p-4 dark:border-gray-700 dark:bg-gray-800">
+          <p className="text-sm font-medium text-primary-900 dark:text-white">Checking out as guest</p>
+          <p className="mt-1 text-sm text-primary-600 dark:text-primary-400">
+            You can place your order without an account, or{' '}
+            <Link to="/login?from=checkout" className="font-medium text-accent-600 hover:underline dark:text-accent-400">log in</Link>
+            {' '}/{' '}
+            <Link to="/register?from=checkout" className="font-medium text-accent-600 hover:underline dark:text-accent-400">register</Link>
+            {' '}to save your details and track orders.
+          </p>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="mt-8 grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
           <div className="rounded-xl border bg-white p-6 dark:border-gray-700 dark:bg-gray-800">

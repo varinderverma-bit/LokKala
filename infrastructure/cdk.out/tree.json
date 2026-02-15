@@ -4,17 +4,17 @@
     "id": "App",
     "path": "",
     "children": {
-      "ArtMarketplaceStack": {
-        "id": "ArtMarketplaceStack",
-        "path": "ArtMarketplaceStack",
+      "ArtMarketplaceStack-dev": {
+        "id": "ArtMarketplaceStack-dev",
+        "path": "ArtMarketplaceStack-dev",
         "children": {
           "ArtMarketplaceVpc": {
             "id": "ArtMarketplaceVpc",
-            "path": "ArtMarketplaceStack/ArtMarketplaceVpc",
+            "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/ArtMarketplaceVpc/Resource",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
                   "aws:cdk:cloudformation:props": {
@@ -25,7 +25,7 @@
                     "tags": [
                       {
                         "key": "Name",
-                        "value": "ArtMarketplaceStack/ArtMarketplaceVpc"
+                        "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc"
                       }
                     ]
                   }
@@ -37,11 +37,11 @@
               },
               "PublicSubnet1": {
                 "id": "PublicSubnet1",
-                "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/Subnet",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -59,7 +59,7 @@
                           },
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1"
                           }
                         ],
                         "vpcId": {
@@ -74,7 +74,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/Acl",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.170.0"
@@ -82,14 +82,14 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/RouteTable",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1"
                           }
                         ],
                         "vpcId": {
@@ -104,7 +104,7 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/RouteTableAssociation",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
@@ -123,7 +123,7 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/DefaultRoute",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -143,7 +143,7 @@
                   },
                   "EIP": {
                     "id": "EIP",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/EIP",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1/EIP",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
                       "aws:cdk:cloudformation:props": {
@@ -151,7 +151,7 @@
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1"
                           }
                         ]
                       }
@@ -163,7 +163,7 @@
                   },
                   "NATGateway": {
                     "id": "NATGateway",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1/NATGateway",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1/NATGateway",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
                       "aws:cdk:cloudformation:props": {
@@ -179,7 +179,7 @@
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet1"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet1"
                           }
                         ]
                       }
@@ -197,11 +197,11 @@
               },
               "PublicSubnet2": {
                 "id": "PublicSubnet2",
-                "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet2",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/Subnet",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet2/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -219,7 +219,7 @@
                           },
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet2"
                           }
                         ],
                         "vpcId": {
@@ -234,7 +234,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/Acl",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet2/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.170.0"
@@ -242,14 +242,14 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/RouteTable",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet2/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet2"
                           }
                         ],
                         "vpcId": {
@@ -264,7 +264,7 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/RouteTableAssociation",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet2/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
@@ -283,7 +283,7 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PublicSubnet2/DefaultRoute",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PublicSubnet2/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -309,11 +309,11 @@
               },
               "PrivateSubnet1": {
                 "id": "PrivateSubnet1",
-                "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet1",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/Subnet",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet1/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -331,7 +331,7 @@
                           },
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet1"
                           }
                         ],
                         "vpcId": {
@@ -346,7 +346,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/Acl",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet1/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.170.0"
@@ -354,14 +354,14 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/RouteTable",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet1/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet1"
                           }
                         ],
                         "vpcId": {
@@ -376,7 +376,7 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/RouteTableAssociation",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet1/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
@@ -395,7 +395,7 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet1/DefaultRoute",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet1/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -421,11 +421,11 @@
               },
               "PrivateSubnet2": {
                 "id": "PrivateSubnet2",
-                "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet2",
                 "children": {
                   "Subnet": {
                     "id": "Subnet",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/Subnet",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet2/Subnet",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
@@ -443,7 +443,7 @@
                           },
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet2"
                           }
                         ],
                         "vpcId": {
@@ -458,7 +458,7 @@
                   },
                   "Acl": {
                     "id": "Acl",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/Acl",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet2/Acl",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.170.0"
@@ -466,14 +466,14 @@
                   },
                   "RouteTable": {
                     "id": "RouteTable",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/RouteTable",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet2/RouteTable",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
                       "aws:cdk:cloudformation:props": {
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2"
+                            "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet2"
                           }
                         ],
                         "vpcId": {
@@ -488,7 +488,7 @@
                   },
                   "RouteTableAssociation": {
                     "id": "RouteTableAssociation",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/RouteTableAssociation",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet2/RouteTableAssociation",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
                       "aws:cdk:cloudformation:props": {
@@ -507,7 +507,7 @@
                   },
                   "DefaultRoute": {
                     "id": "DefaultRoute",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceVpc/PrivateSubnet2/DefaultRoute",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/PrivateSubnet2/DefaultRoute",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -533,14 +533,14 @@
               },
               "IGW": {
                 "id": "IGW",
-                "path": "ArtMarketplaceStack/ArtMarketplaceVpc/IGW",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/IGW",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
                   "aws:cdk:cloudformation:props": {
                     "tags": [
                       {
                         "key": "Name",
-                        "value": "ArtMarketplaceStack/ArtMarketplaceVpc"
+                        "value": "ArtMarketplaceStack-dev/ArtMarketplaceVpc"
                       }
                     ]
                   }
@@ -552,7 +552,7 @@
               },
               "VPCGW": {
                 "id": "VPCGW",
-                "path": "ArtMarketplaceStack/ArtMarketplaceVpc/VPCGW",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceVpc/VPCGW",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
                   "aws:cdk:cloudformation:props": {
@@ -577,11 +577,11 @@
           },
           "PaintingsBucket": {
             "id": "PaintingsBucket",
-            "path": "ArtMarketplaceStack/PaintingsBucket",
+            "path": "ArtMarketplaceStack-dev/PaintingsBucket",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/PaintingsBucket/Resource",
+                "path": "ArtMarketplaceStack-dev/PaintingsBucket/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                   "aws:cdk:cloudformation:props": {
@@ -599,7 +599,13 @@
                       "blockPublicPolicy": true,
                       "ignorePublicAcls": true,
                       "restrictPublicBuckets": true
-                    }
+                    },
+                    "tags": [
+                      {
+                        "key": "aws-cdk:auto-delete-objects",
+                        "value": "true"
+                      }
+                    ]
                   }
                 },
                 "constructInfo": {
@@ -609,11 +615,11 @@
               },
               "Policy": {
                 "id": "Policy",
-                "path": "ArtMarketplaceStack/PaintingsBucket/Policy",
+                "path": "ArtMarketplaceStack-dev/PaintingsBucket/Policy",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "ArtMarketplaceStack/PaintingsBucket/Policy/Resource",
+                    "path": "ArtMarketplaceStack-dev/PaintingsBucket/Policy/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
                       "aws:cdk:cloudformation:props": {
@@ -622,6 +628,45 @@
                         },
                         "policyDocument": {
                           "Statement": [
+                            {
+                              "Action": [
+                                "s3:PutBucketPolicy",
+                                "s3:GetBucket*",
+                                "s3:List*",
+                                "s3:DeleteObject*"
+                              ],
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": {
+                                  "Fn::GetAtt": [
+                                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                                    "Arn"
+                                  ]
+                                }
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "PaintingsBucketE7A48EC0",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "PaintingsBucketE7A48EC0",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
                             {
                               "Action": "s3:GetObject",
                               "Effect": "Allow",
@@ -663,6 +708,24 @@
                   "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
                   "version": "2.170.0"
                 }
+              },
+              "AutoDeleteObjectsCustomResource": {
+                "id": "AutoDeleteObjectsCustomResource",
+                "path": "ArtMarketplaceStack-dev/PaintingsBucket/AutoDeleteObjectsCustomResource",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "ArtMarketplaceStack-dev/PaintingsBucket/AutoDeleteObjectsCustomResource/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CustomResource",
+                  "version": "2.170.0"
+                }
               }
             },
             "constructInfo": {
@@ -670,13 +733,47 @@
               "version": "2.170.0"
             }
           },
+          "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
+            "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "path": "ArtMarketplaceStack-dev/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "ArtMarketplaceStack-dev/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.170.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "ArtMarketplaceStack-dev/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.170.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "ArtMarketplaceStack-dev/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CustomResourceProviderBase",
+              "version": "2.170.0"
+            }
+          },
           "PaintingsTable": {
             "id": "PaintingsTable",
-            "path": "ArtMarketplaceStack/PaintingsTable",
+            "path": "ArtMarketplaceStack-dev/PaintingsTable",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/PaintingsTable/Resource",
+                "path": "ArtMarketplaceStack-dev/PaintingsTable/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -732,7 +829,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "ArtMarketplaceStack/PaintingsTable/ScalingRole",
+                "path": "ArtMarketplaceStack-dev/PaintingsTable/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.170.0"
@@ -746,12 +843,12 @@
           },
           "RedisSubnetGroup": {
             "id": "RedisSubnetGroup",
-            "path": "ArtMarketplaceStack/RedisSubnetGroup",
+            "path": "ArtMarketplaceStack-dev/RedisSubnetGroup",
             "attributes": {
               "aws:cdk:cloudformation:type": "AWS::ElastiCache::SubnetGroup",
               "aws:cdk:cloudformation:props": {
-                "cacheSubnetGroupName": "art-marketplace-redis-026c45d1",
-                "description": "Subnet group for Redis cache",
+                "cacheSubnetGroupName": "art-mkt-redis-dev-cd1df26a",
+                "description": "Redis cache subnet group (dev)",
                 "subnetIds": [
                   {
                     "Ref": "ArtMarketplaceVpcPrivateSubnet1Subnet863A440E"
@@ -769,11 +866,11 @@
           },
           "RedisSg": {
             "id": "RedisSg",
-            "path": "ArtMarketplaceStack/RedisSg",
+            "path": "ArtMarketplaceStack-dev/RedisSg",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/RedisSg/Resource",
+                "path": "ArtMarketplaceStack-dev/RedisSg/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                   "aws:cdk:cloudformation:props": {
@@ -797,9 +894,9 @@
                   "version": "2.170.0"
                 }
               },
-              "from ArtMarketplaceStackEc2Sg4CC3BDF8:6379": {
-                "id": "from ArtMarketplaceStackEc2Sg4CC3BDF8:6379",
-                "path": "ArtMarketplaceStack/RedisSg/from ArtMarketplaceStackEc2Sg4CC3BDF8:6379",
+              "from ArtMarketplaceStackdevEc2SgEF1E1CAD:6379": {
+                "id": "from ArtMarketplaceStackdevEc2SgEF1E1CAD:6379",
+                "path": "ArtMarketplaceStack-dev/RedisSg/from ArtMarketplaceStackdevEc2SgEF1E1CAD:6379",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
                   "aws:cdk:cloudformation:props": {
@@ -834,7 +931,7 @@
           },
           "RedisCluster": {
             "id": "RedisCluster",
-            "path": "ArtMarketplaceStack/RedisCluster",
+            "path": "ArtMarketplaceStack-dev/RedisCluster",
             "attributes": {
               "aws:cdk:cloudformation:type": "AWS::ElastiCache::CacheCluster",
               "aws:cdk:cloudformation:props": {
@@ -861,11 +958,11 @@
           },
           "AlbSg": {
             "id": "AlbSg",
-            "path": "ArtMarketplaceStack/AlbSg",
+            "path": "ArtMarketplaceStack-dev/AlbSg",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/AlbSg/Resource",
+                "path": "ArtMarketplaceStack-dev/AlbSg/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                   "aws:cdk:cloudformation:props": {
@@ -911,11 +1008,11 @@
           },
           "Ec2Sg": {
             "id": "Ec2Sg",
-            "path": "ArtMarketplaceStack/Ec2Sg",
+            "path": "ArtMarketplaceStack-dev/Ec2Sg",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/Ec2Sg/Resource",
+                "path": "ArtMarketplaceStack-dev/Ec2Sg/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                   "aws:cdk:cloudformation:props": {
@@ -937,9 +1034,9 @@
                   "version": "2.170.0"
                 }
               },
-              "from ArtMarketplaceStackAlbSgE51855AC:80": {
-                "id": "from ArtMarketplaceStackAlbSgE51855AC:80",
-                "path": "ArtMarketplaceStack/Ec2Sg/from ArtMarketplaceStackAlbSgE51855AC:80",
+              "from ArtMarketplaceStackdevAlbSg980BF1CC:80": {
+                "id": "from ArtMarketplaceStackdevAlbSg980BF1CC:80",
+                "path": "ArtMarketplaceStack-dev/Ec2Sg/from ArtMarketplaceStackdevAlbSg980BF1CC:80",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
                   "aws:cdk:cloudformation:props": {
@@ -972,13 +1069,1191 @@
               "version": "2.170.0"
             }
           },
+          "RdsSg": {
+            "id": "RdsSg",
+            "path": "ArtMarketplaceStack-dev/RdsSg",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/RdsSg/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "Security group for RDS PostgreSQL",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 0,
+                        "toPort": 65535,
+                        "description": "from 0.0.0.0/0:ALL PORTS"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "ArtMarketplaceVpcA6781435"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.170.0"
+                }
+              },
+              "from ArtMarketplaceStackdevEc2SgEF1E1CAD:5432": {
+                "id": "from ArtMarketplaceStackdevEc2SgEF1E1CAD:5432",
+                "path": "ArtMarketplaceStack-dev/RdsSg/from ArtMarketplaceStackdevEc2SgEF1E1CAD:5432",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "description": "PostgreSQL from EC2",
+                    "fromPort": 5432,
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "RdsSg7F9F43B6",
+                        "GroupId"
+                      ]
+                    },
+                    "ipProtocol": "tcp",
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "Ec2SgF43886FE",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 5432
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.170.0"
+            }
+          },
+          "PostgresDb": {
+            "id": "PostgresDb",
+            "path": "ArtMarketplaceStack-dev/PostgresDb",
+            "children": {
+              "SubnetGroup": {
+                "id": "SubnetGroup",
+                "path": "ArtMarketplaceStack-dev/PostgresDb/SubnetGroup",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "ArtMarketplaceStack-dev/PostgresDb/SubnetGroup/Default",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::RDS::DBSubnetGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "dbSubnetGroupDescription": "Subnet group for PostgresDb database",
+                        "subnetIds": [
+                          {
+                            "Ref": "ArtMarketplaceVpcPrivateSubnet1Subnet863A440E"
+                          },
+                          {
+                            "Ref": "ArtMarketplaceVpcPrivateSubnet2SubnetE2AACAD7"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_rds.CfnDBSubnetGroup",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_rds.SubnetGroup",
+                  "version": "2.170.0"
+                }
+              },
+              "Secret": {
+                "id": "Secret",
+                "path": "ArtMarketplaceStack-dev/PostgresDb/Secret",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/PostgresDb/Secret/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
+                      "aws:cdk:cloudformation:props": {
+                        "description": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "Generated by the CDK for stack: ",
+                              {
+                                "Ref": "AWS::StackName"
+                              }
+                            ]
+                          ]
+                        },
+                        "generateSecretString": {
+                          "passwordLength": 30,
+                          "secretStringTemplate": "{\"username\":\"postgres\"}",
+                          "generateStringKey": "password",
+                          "excludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_secretsmanager.CfnSecret",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Attachment": {
+                    "id": "Attachment",
+                    "path": "ArtMarketplaceStack-dev/PostgresDb/Secret/Attachment",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ArtMarketplaceStack-dev/PostgresDb/Secret/Attachment/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::SecretsManager::SecretTargetAttachment",
+                          "aws:cdk:cloudformation:props": {
+                            "secretId": {
+                              "Ref": "ArtMarketplaceStackdevPostgresDbSecretC637A2473fdaad7efa858a3daf9490cf0a702aeb"
+                            },
+                            "targetId": {
+                              "Ref": "PostgresDb29EB1611"
+                            },
+                            "targetType": "AWS::RDS::DBInstance"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_secretsmanager.CfnSecretTargetAttachment",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_secretsmanager.SecretTargetAttachment",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_rds.DatabaseSecret",
+                  "version": "2.170.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/PostgresDb/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::RDS::DBInstance",
+                  "aws:cdk:cloudformation:props": {
+                    "allocatedStorage": "20",
+                    "copyTagsToSnapshot": true,
+                    "dbInstanceClass": "db.t3.micro",
+                    "dbInstanceIdentifier": "art-mkt-db-dev",
+                    "dbName": "artmarketplace",
+                    "dbSubnetGroupName": {
+                      "Ref": "PostgresDbSubnetGroup9C32BD27"
+                    },
+                    "engine": "postgres",
+                    "engineVersion": "16",
+                    "masterUsername": "postgres",
+                    "masterUserPassword": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "{{resolve:secretsmanager:",
+                          {
+                            "Ref": "ArtMarketplaceStackdevPostgresDbSecretC637A2473fdaad7efa858a3daf9490cf0a702aeb"
+                          },
+                          ":SecretString:password::}}"
+                        ]
+                      ]
+                    },
+                    "maxAllocatedStorage": 100,
+                    "publiclyAccessible": false,
+                    "storageType": "gp2",
+                    "vpcSecurityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "RdsSg7F9F43B6",
+                          "GroupId"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_rds.CfnDBInstance",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_rds.DatabaseInstance",
+              "version": "2.170.0"
+            }
+          },
+          "ItemUploadsTable": {
+            "id": "ItemUploadsTable",
+            "path": "ArtMarketplaceStack-dev/ItemUploadsTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/ItemUploadsTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "id",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "keySchema": [
+                      {
+                        "attributeName": "id",
+                        "keyType": "HASH"
+                      }
+                    ],
+                    "streamSpecification": {
+                      "streamViewType": "NEW_AND_OLD_IMAGES"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.170.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ArtMarketplaceStack-dev/ItemUploadsTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.170.0"
+            }
+          },
+          "ItemsReadModelTable": {
+            "id": "ItemsReadModelTable",
+            "path": "ArtMarketplaceStack-dev/ItemsReadModelTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/ItemsReadModelTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "id",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "type",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "createdAt",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "regionId",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "categoryId",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "globalSecondaryIndexes": [
+                      {
+                        "indexName": "type-createdAt-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "type",
+                            "keyType": "HASH"
+                          },
+                          {
+                            "attributeName": "createdAt",
+                            "keyType": "RANGE"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      },
+                      {
+                        "indexName": "regionId-createdAt-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "regionId",
+                            "keyType": "HASH"
+                          },
+                          {
+                            "attributeName": "createdAt",
+                            "keyType": "RANGE"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      },
+                      {
+                        "indexName": "categoryId-createdAt-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "categoryId",
+                            "keyType": "HASH"
+                          },
+                          {
+                            "attributeName": "createdAt",
+                            "keyType": "RANGE"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      }
+                    ],
+                    "keySchema": [
+                      {
+                        "attributeName": "id",
+                        "keyType": "HASH"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.170.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ArtMarketplaceStack-dev/ItemsReadModelTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.170.0"
+            }
+          },
+          "CqrsFlattenFn": {
+            "id": "CqrsFlattenFn",
+            "path": "ArtMarketplaceStack-dev/CqrsFlattenFn",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "xray:PutTraceSegments",
+                                    "xray:PutTelemetryRecords"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": "dynamodb:ListStreams",
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:DescribeStream",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "ItemUploadsTable6145784F",
+                                      "StreamArn"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "ItemsReadModelTable60A37FC6",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "ItemsReadModelTable60A37FC6",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/index/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "CqrsFlattenFnServiceRoleDefaultPolicy3CEDD71D",
+                            "roles": [
+                              {
+                                "Ref": "CqrsFlattenFnServiceRoleBFA9117E"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.170.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.170.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": "cdk-hnb659fds-assets-022706514418-us-east-1",
+                      "s3Key": "9ec86ad8d1ed3a4ba158131961946854e5cc59847c39e1402651ff94a18dd6d6.zip"
+                    },
+                    "environment": {
+                      "variables": {
+                        "READ_MODEL_TABLE_NAME": {
+                          "Ref": "ItemsReadModelTable60A37FC6"
+                        }
+                      }
+                    },
+                    "handler": "index.handler",
+                    "memorySize": 256,
+                    "role": {
+                      "Fn::GetAtt": [
+                        "CqrsFlattenFnServiceRoleBFA9117E",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "nodejs18.x",
+                    "timeout": 60,
+                    "tracingConfig": {
+                      "mode": "Active"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.170.0"
+                }
+              },
+              "LogRetention": {
+                "id": "LogRetention",
+                "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/LogRetention",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/LogRetention/Resource",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.LogRetention",
+                  "version": "2.170.0"
+                }
+              },
+              "LogGroup": {
+                "id": "LogGroup",
+                "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/LogGroup",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              },
+              "DynamoDBEventSource:ArtMarketplaceStackdevItemUploadsTableF11D7A57": {
+                "id": "DynamoDBEventSource:ArtMarketplaceStackdevItemUploadsTableF11D7A57",
+                "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/DynamoDBEventSource:ArtMarketplaceStackdevItemUploadsTableF11D7A57",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/CqrsFlattenFn/DynamoDBEventSource:ArtMarketplaceStackdevItemUploadsTableF11D7A57/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::EventSourceMapping",
+                      "aws:cdk:cloudformation:props": {
+                        "batchSize": 100,
+                        "eventSourceArn": {
+                          "Fn::GetAtt": [
+                            "ItemUploadsTable6145784F",
+                            "StreamArn"
+                          ]
+                        },
+                        "functionName": {
+                          "Ref": "CqrsFlattenFn8BC7B25D"
+                        },
+                        "startingPosition": "LATEST"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnEventSourceMapping",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.EventSourceMapping",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.170.0"
+            }
+          },
+          "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a": {
+            "id": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a",
+            "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.170.0"
+                }
+              },
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "logs:PutRetentionPolicy",
+                                    "logs:DeleteRetentionPolicy"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+                            "roles": [
+                              {
+                                "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.170.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.5"
+            }
+          },
+          "ArtifactsTable": {
+            "id": "ArtifactsTable",
+            "path": "ArtMarketplaceStack-dev/ArtifactsTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/ArtifactsTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "id",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "categoryId",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "createdAt",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "globalSecondaryIndexes": [
+                      {
+                        "indexName": "categoryId-createdAt-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "categoryId",
+                            "keyType": "HASH"
+                          },
+                          {
+                            "attributeName": "createdAt",
+                            "keyType": "RANGE"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      }
+                    ],
+                    "keySchema": [
+                      {
+                        "attributeName": "id",
+                        "keyType": "HASH"
+                      },
+                      {
+                        "attributeName": "categoryId",
+                        "keyType": "RANGE"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.170.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ArtMarketplaceStack-dev/ArtifactsTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.170.0"
+            }
+          },
+          "UsersTable": {
+            "id": "UsersTable",
+            "path": "ArtMarketplaceStack-dev/UsersTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/UsersTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "userId",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "email",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "globalSecondaryIndexes": [
+                      {
+                        "indexName": "email-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "email",
+                            "keyType": "HASH"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      }
+                    ],
+                    "keySchema": [
+                      {
+                        "attributeName": "userId",
+                        "keyType": "HASH"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.170.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ArtMarketplaceStack-dev/UsersTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.170.0"
+            }
+          },
+          "OrdersTable": {
+            "id": "OrdersTable",
+            "path": "ArtMarketplaceStack-dev/OrdersTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/OrdersTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "orderId",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "userId",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "createdAt",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "globalSecondaryIndexes": [
+                      {
+                        "indexName": "userId-createdAt-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "userId",
+                            "keyType": "HASH"
+                          },
+                          {
+                            "attributeName": "createdAt",
+                            "keyType": "RANGE"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      }
+                    ],
+                    "keySchema": [
+                      {
+                        "attributeName": "orderId",
+                        "keyType": "HASH"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.170.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ArtMarketplaceStack-dev/OrdersTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.170.0"
+            }
+          },
+          "OrderStatusTable": {
+            "id": "OrderStatusTable",
+            "path": "ArtMarketplaceStack-dev/OrderStatusTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/OrderStatusTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "orderId",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "timestamp",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "keySchema": [
+                      {
+                        "attributeName": "orderId",
+                        "keyType": "HASH"
+                      },
+                      {
+                        "attributeName": "timestamp",
+                        "keyType": "RANGE"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.170.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ArtMarketplaceStack-dev/OrderStatusTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.170.0"
+            }
+          },
+          "InventoryTable": {
+            "id": "InventoryTable",
+            "path": "ArtMarketplaceStack-dev/InventoryTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/InventoryTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "itemId",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "keySchema": [
+                      {
+                        "attributeName": "itemId",
+                        "keyType": "HASH"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.170.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ArtMarketplaceStack-dev/InventoryTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.170.0"
+            }
+          },
+          "ShipmentsTable": {
+            "id": "ShipmentsTable",
+            "path": "ArtMarketplaceStack-dev/ShipmentsTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/ShipmentsTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "shipmentId",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "orderId",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "globalSecondaryIndexes": [
+                      {
+                        "indexName": "orderId-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "orderId",
+                            "keyType": "HASH"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      }
+                    ],
+                    "keySchema": [
+                      {
+                        "attributeName": "shipmentId",
+                        "keyType": "HASH"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.170.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ArtMarketplaceStack-dev/ShipmentsTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.170.0"
+            }
+          },
           "Ec2Role": {
             "id": "Ec2Role",
-            "path": "ArtMarketplaceStack/Ec2Role",
+            "path": "ArtMarketplaceStack-dev/Ec2Role",
             "children": {
               "ImportEc2Role": {
                 "id": "ImportEc2Role",
-                "path": "ArtMarketplaceStack/Ec2Role/ImportEc2Role",
+                "path": "ArtMarketplaceStack-dev/Ec2Role/ImportEc2Role",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.170.0"
@@ -986,7 +2261,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/Ec2Role/Resource",
+                "path": "ArtMarketplaceStack-dev/Ec2Role/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                   "aws:cdk:cloudformation:props": {
@@ -1025,11 +2300,11 @@
               },
               "DefaultPolicy": {
                 "id": "DefaultPolicy",
-                "path": "ArtMarketplaceStack/Ec2Role/DefaultPolicy",
+                "path": "ArtMarketplaceStack-dev/Ec2Role/DefaultPolicy",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "ArtMarketplaceStack/Ec2Role/DefaultPolicy/Resource",
+                    "path": "ArtMarketplaceStack-dev/Ec2Role/DefaultPolicy/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                       "aws:cdk:cloudformation:props": {
@@ -1110,6 +2385,118 @@
                                   ]
                                 }
                               ]
+                            },
+                            {
+                              "Action": [
+                                "dynamodb:BatchGetItem",
+                                "dynamodb:GetRecords",
+                                "dynamodb:GetShardIterator",
+                                "dynamodb:Query",
+                                "dynamodb:GetItem",
+                                "dynamodb:Scan",
+                                "dynamodb:ConditionCheckItem",
+                                "dynamodb:BatchWriteItem",
+                                "dynamodb:PutItem",
+                                "dynamodb:UpdateItem",
+                                "dynamodb:DeleteItem",
+                                "dynamodb:DescribeTable"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "ArtifactsTable22794241",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "ArtifactsTable22794241",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/index/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Action": [
+                                "dynamodb:BatchGetItem",
+                                "dynamodb:GetRecords",
+                                "dynamodb:GetShardIterator",
+                                "dynamodb:Query",
+                                "dynamodb:GetItem",
+                                "dynamodb:Scan",
+                                "dynamodb:ConditionCheckItem",
+                                "dynamodb:BatchWriteItem",
+                                "dynamodb:PutItem",
+                                "dynamodb:UpdateItem",
+                                "dynamodb:DeleteItem",
+                                "dynamodb:DescribeTable"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "ItemUploadsTable6145784F",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Ref": "AWS::NoValue"
+                                }
+                              ]
+                            },
+                            {
+                              "Action": [
+                                "dynamodb:BatchGetItem",
+                                "dynamodb:GetRecords",
+                                "dynamodb:GetShardIterator",
+                                "dynamodb:Query",
+                                "dynamodb:GetItem",
+                                "dynamodb:Scan",
+                                "dynamodb:ConditionCheckItem",
+                                "dynamodb:DescribeTable"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "ItemsReadModelTable60A37FC6",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "ItemsReadModelTable60A37FC6",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/index/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Action": [
+                                "secretsmanager:GetSecretValue",
+                                "secretsmanager:DescribeSecret"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Ref": "PostgresDbSecretAttachmentAEA45EAF"
+                              }
                             }
                           ],
                           "Version": "2012-10-17"
@@ -1141,11 +2528,11 @@
           },
           "AppInstance": {
             "id": "AppInstance",
-            "path": "ArtMarketplaceStack/AppInstance",
+            "path": "ArtMarketplaceStack-dev/AppInstance",
             "children": {
               "InstanceProfile": {
                 "id": "InstanceProfile",
-                "path": "ArtMarketplaceStack/AppInstance/InstanceProfile",
+                "path": "ArtMarketplaceStack-dev/AppInstance/InstanceProfile",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
                   "aws:cdk:cloudformation:props": {
@@ -1163,7 +2550,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/AppInstance/Resource",
+                "path": "ArtMarketplaceStack-dev/AppInstance/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
                   "aws:cdk:cloudformation:props": {
@@ -1189,7 +2576,7 @@
                     "tags": [
                       {
                         "key": "Name",
-                        "value": "ArtMarketplaceStack/AppInstance"
+                        "value": "ArtMarketplaceStack-dev/AppInstance"
                       }
                     ],
                     "userData": {
@@ -1210,7 +2597,7 @@
           },
           "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
             "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
-            "path": "ArtMarketplaceStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "ArtMarketplaceStack-dev/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
               "version": "2.170.0"
@@ -1218,7 +2605,7 @@
           },
           "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118": {
             "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
-            "path": "ArtMarketplaceStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "ArtMarketplaceStack-dev/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
             "constructInfo": {
               "fqn": "aws-cdk-lib.Resource",
               "version": "2.170.0"
@@ -1226,11 +2613,11 @@
           },
           "Alb": {
             "id": "Alb",
-            "path": "ArtMarketplaceStack/Alb",
+            "path": "ArtMarketplaceStack-dev/Alb",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/Alb/Resource",
+                "path": "ArtMarketplaceStack-dev/Alb/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
                   "aws:cdk:cloudformation:props": {
@@ -1267,11 +2654,11 @@
               },
               "HttpListener": {
                 "id": "HttpListener",
-                "path": "ArtMarketplaceStack/Alb/HttpListener",
+                "path": "ArtMarketplaceStack-dev/Alb/HttpListener",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "ArtMarketplaceStack/Alb/HttpListener/Resource",
+                    "path": "ArtMarketplaceStack-dev/Alb/HttpListener/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
                       "aws:cdk:cloudformation:props": {
@@ -1309,11 +2696,11 @@
           },
           "AlbTargetGroup": {
             "id": "AlbTargetGroup",
-            "path": "ArtMarketplaceStack/AlbTargetGroup",
+            "path": "ArtMarketplaceStack-dev/AlbTargetGroup",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/AlbTargetGroup/Resource",
+                "path": "ArtMarketplaceStack-dev/AlbTargetGroup/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
                   "aws:cdk:cloudformation:props": {
@@ -1357,11 +2744,11 @@
           },
           "ArtMarketplaceApi": {
             "id": "ArtMarketplaceApi",
-            "path": "ArtMarketplaceStack/ArtMarketplaceApi",
+            "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/ArtMarketplaceApi/Resource",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Api",
                   "aws:cdk:cloudformation:props": {
@@ -1381,7 +2768,7 @@
                       ]
                     },
                     "description": "API for Art Marketplace (paintings, regions, artists)",
-                    "name": "art-marketplace-api",
+                    "name": "art-marketplace-api-dev",
                     "protocolType": "HTTP"
                   }
                 },
@@ -1392,15 +2779,15 @@
               },
               "DefaultRoute": {
                 "id": "DefaultRoute",
-                "path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultRoute",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/DefaultRoute",
                 "children": {
                   "AlbIntegration": {
                     "id": "AlbIntegration",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultRoute/AlbIntegration",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/DefaultRoute/AlbIntegration",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultRoute/AlbIntegration/Resource",
+                        "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/DefaultRoute/AlbIntegration/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Integration",
                           "aws:cdk:cloudformation:props": {
@@ -1432,7 +2819,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultRoute/Resource",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/DefaultRoute/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -1467,15 +2854,15 @@
               },
               "VpcLink-1": {
                 "id": "VpcLink-1",
-                "path": "ArtMarketplaceStack/ArtMarketplaceApi/VpcLink-1",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/VpcLink-1",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceApi/VpcLink-1/Resource",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/VpcLink-1/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::VpcLink",
                       "aws:cdk:cloudformation:props": {
-                        "name": "ArtMarketplaceStackArtMarketplaceApiVpcLink13BAC5486",
+                        "name": "ArtMarketplaceStackdevArtMarketplaceApiVpcLink1D8364B8C",
                         "securityGroupIds": [],
                         "subnetIds": [
                           {
@@ -1500,11 +2887,11 @@
               },
               "DefaultStage": {
                 "id": "DefaultStage",
-                "path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultStage",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/DefaultStage",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceApi/DefaultStage/Resource",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/DefaultStage/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Stage",
                       "aws:cdk:cloudformation:props": {
@@ -1528,11 +2915,11 @@
               },
               "ANY--{proxy+}": {
                 "id": "ANY--{proxy+}",
-                "path": "ArtMarketplaceStack/ArtMarketplaceApi/ANY--{proxy+}",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--{proxy+}",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "ArtMarketplaceStack/ArtMarketplaceApi/ANY--{proxy+}/Resource",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--{proxy+}/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
                       "aws:cdk:cloudformation:props": {
@@ -1564,6 +2951,378 @@
                   "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpRoute",
                   "version": "2.170.0"
                 }
+              },
+              "ANY--api--lokkala": {
+                "id": "ANY--api--lokkala",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--lokkala",
+                "children": {
+                  "LokKalaIntegration": {
+                    "id": "LokKalaIntegration",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--lokkala/LokKalaIntegration",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--lokkala/LokKalaIntegration/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Integration",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Ref": "ArtMarketplaceApi2A6E120C"
+                            },
+                            "integrationType": "AWS_PROXY",
+                            "integrationUri": {
+                              "Fn::GetAtt": [
+                                "LokKalaServiceFnA57A439D",
+                                "Arn"
+                              ]
+                            },
+                            "payloadFormatVersion": "2.0"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnIntegration",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpIntegration",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "LokKalaIntegration-Permission": {
+                    "id": "LokKalaIntegration-Permission",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--lokkala/LokKalaIntegration-Permission",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                      "aws:cdk:cloudformation:props": {
+                        "action": "lambda:InvokeFunction",
+                        "functionName": {
+                          "Fn::GetAtt": [
+                            "LokKalaServiceFnA57A439D",
+                            "Arn"
+                          ]
+                        },
+                        "principal": "apigateway.amazonaws.com",
+                        "sourceArn": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":execute-api:us-east-1:022706514418:",
+                              {
+                                "Ref": "ArtMarketplaceApi2A6E120C"
+                              },
+                              "/*/*/api/lokkala"
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--lokkala/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "apiId": {
+                          "Ref": "ArtMarketplaceApi2A6E120C"
+                        },
+                        "authorizationType": "NONE",
+                        "routeKey": "ANY /api/lokkala",
+                        "target": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "integrations/",
+                              {
+                                "Ref": "ArtMarketplaceApiANYapilokkalaLokKalaIntegration56B368C5"
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnRoute",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpRoute",
+                  "version": "2.170.0"
+                }
+              },
+              "ANY--api--lokkala--{proxy+}": {
+                "id": "ANY--api--lokkala--{proxy+}",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--lokkala--{proxy+}",
+                "children": {
+                  "LokKalaIntegration-Permission": {
+                    "id": "LokKalaIntegration-Permission",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--lokkala--{proxy+}/LokKalaIntegration-Permission",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                      "aws:cdk:cloudformation:props": {
+                        "action": "lambda:InvokeFunction",
+                        "functionName": {
+                          "Fn::GetAtt": [
+                            "LokKalaServiceFnA57A439D",
+                            "Arn"
+                          ]
+                        },
+                        "principal": "apigateway.amazonaws.com",
+                        "sourceArn": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":execute-api:us-east-1:022706514418:",
+                              {
+                                "Ref": "ArtMarketplaceApi2A6E120C"
+                              },
+                              "/*/*/api/lokkala/{proxy+}"
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--lokkala--{proxy+}/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "apiId": {
+                          "Ref": "ArtMarketplaceApi2A6E120C"
+                        },
+                        "authorizationType": "NONE",
+                        "routeKey": "ANY /api/lokkala/{proxy+}",
+                        "target": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "integrations/",
+                              {
+                                "Ref": "ArtMarketplaceApiANYapilokkalaLokKalaIntegration56B368C5"
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnRoute",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpRoute",
+                  "version": "2.170.0"
+                }
+              },
+              "ANY--api--orders": {
+                "id": "ANY--api--orders",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--orders",
+                "children": {
+                  "OrderServiceIntegration": {
+                    "id": "OrderServiceIntegration",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--orders/OrderServiceIntegration",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--orders/OrderServiceIntegration/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Integration",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Ref": "ArtMarketplaceApi2A6E120C"
+                            },
+                            "integrationType": "AWS_PROXY",
+                            "integrationUri": {
+                              "Fn::GetAtt": [
+                                "OrderServiceFn4703DC85",
+                                "Arn"
+                              ]
+                            },
+                            "payloadFormatVersion": "2.0"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnIntegration",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpIntegration",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "OrderServiceIntegration-Permission": {
+                    "id": "OrderServiceIntegration-Permission",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--orders/OrderServiceIntegration-Permission",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                      "aws:cdk:cloudformation:props": {
+                        "action": "lambda:InvokeFunction",
+                        "functionName": {
+                          "Fn::GetAtt": [
+                            "OrderServiceFn4703DC85",
+                            "Arn"
+                          ]
+                        },
+                        "principal": "apigateway.amazonaws.com",
+                        "sourceArn": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":execute-api:us-east-1:022706514418:",
+                              {
+                                "Ref": "ArtMarketplaceApi2A6E120C"
+                              },
+                              "/*/*/api/orders"
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--orders/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "apiId": {
+                          "Ref": "ArtMarketplaceApi2A6E120C"
+                        },
+                        "authorizationType": "NONE",
+                        "routeKey": "ANY /api/orders",
+                        "target": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "integrations/",
+                              {
+                                "Ref": "ArtMarketplaceApiANYapiordersOrderServiceIntegration790A8E5B"
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnRoute",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpRoute",
+                  "version": "2.170.0"
+                }
+              },
+              "ANY--api--orders--{proxy+}": {
+                "id": "ANY--api--orders--{proxy+}",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--orders--{proxy+}",
+                "children": {
+                  "OrderServiceIntegration-Permission": {
+                    "id": "OrderServiceIntegration-Permission",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--orders--{proxy+}/OrderServiceIntegration-Permission",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                      "aws:cdk:cloudformation:props": {
+                        "action": "lambda:InvokeFunction",
+                        "functionName": {
+                          "Fn::GetAtt": [
+                            "OrderServiceFn4703DC85",
+                            "Arn"
+                          ]
+                        },
+                        "principal": "apigateway.amazonaws.com",
+                        "sourceArn": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":execute-api:us-east-1:022706514418:",
+                              {
+                                "Ref": "ArtMarketplaceApi2A6E120C"
+                              },
+                              "/*/*/api/orders/{proxy+}"
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/ArtMarketplaceApi/ANY--api--orders--{proxy+}/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "apiId": {
+                          "Ref": "ArtMarketplaceApi2A6E120C"
+                        },
+                        "authorizationType": "NONE",
+                        "routeKey": "ANY /api/orders/{proxy+}",
+                        "target": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "integrations/",
+                              {
+                                "Ref": "ArtMarketplaceApiANYapiordersOrderServiceIntegration790A8E5B"
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnRoute",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpRoute",
+                  "version": "2.170.0"
+                }
               }
             },
             "constructInfo": {
@@ -1573,11 +3332,11 @@
           },
           "Distribution": {
             "id": "Distribution",
-            "path": "ArtMarketplaceStack/Distribution",
+            "path": "ArtMarketplaceStack-dev/Distribution",
             "children": {
               "Origin1": {
                 "id": "Origin1",
-                "path": "ArtMarketplaceStack/Distribution/Origin1",
+                "path": "ArtMarketplaceStack-dev/Distribution/Origin1",
                 "constructInfo": {
                   "fqn": "constructs.Construct",
                   "version": "10.4.5"
@@ -1585,20 +3344,20 @@
               },
               "Origin2": {
                 "id": "Origin2",
-                "path": "ArtMarketplaceStack/Distribution/Origin2",
+                "path": "ArtMarketplaceStack-dev/Distribution/Origin2",
                 "children": {
                   "S3Origin": {
                     "id": "S3Origin",
-                    "path": "ArtMarketplaceStack/Distribution/Origin2/S3Origin",
+                    "path": "ArtMarketplaceStack-dev/Distribution/Origin2/S3Origin",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "ArtMarketplaceStack/Distribution/Origin2/S3Origin/Resource",
+                        "path": "ArtMarketplaceStack-dev/Distribution/Origin2/S3Origin/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
                           "aws:cdk:cloudformation:props": {
                             "cloudFrontOriginAccessIdentityConfig": {
-                              "comment": "Identity for ArtMarketplaceStackDistributionOrigin2ED2DE548"
+                              "comment": "Identity for ArtMarketplaceStackdevDistributionOrigin2894B1C0D"
                             }
                           }
                         },
@@ -1621,7 +3380,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "ArtMarketplaceStack/Distribution/Resource",
+                "path": "ArtMarketplaceStack-dev/Distribution/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
                   "aws:cdk:cloudformation:props": {
@@ -1635,7 +3394,7 @@
                               "DNSName"
                             ]
                           },
-                          "id": "ArtMarketplaceStackDistributionOrigin140002B03",
+                          "id": "ArtMarketplaceStackdevDistributionOrigin15AF65FD9",
                           "originCustomHeaders": [
                             {
                               "headerName": "X-Forwarded-Host",
@@ -1656,7 +3415,7 @@
                               "RegionalDomainName"
                             ]
                           },
-                          "id": "ArtMarketplaceStackDistributionOrigin2ED2DE548",
+                          "id": "ArtMarketplaceStackdevDistributionOrigin2894B1C0D",
                           "s3OriginConfig": {
                             "originAccessIdentity": {
                               "Fn::Join": [
@@ -1674,7 +3433,7 @@
                       ],
                       "defaultCacheBehavior": {
                         "pathPattern": "*",
-                        "targetOriginId": "ArtMarketplaceStackDistributionOrigin140002B03",
+                        "targetOriginId": "ArtMarketplaceStackdevDistributionOrigin15AF65FD9",
                         "allowedMethods": [
                           "GET",
                           "HEAD",
@@ -1687,7 +3446,7 @@
                       "cacheBehaviors": [
                         {
                           "pathPattern": "/paintings/*",
-                          "targetOriginId": "ArtMarketplaceStackDistributionOrigin2ED2DE548",
+                          "targetOriginId": "ArtMarketplaceStackdevDistributionOrigin2894B1C0D",
                           "allowedMethods": [
                             "GET",
                             "HEAD",
@@ -1729,9 +3488,1109 @@
               "version": "2.170.0"
             }
           },
+          "LokKalaServiceFn": {
+            "id": "LokKalaServiceFn",
+            "path": "ArtMarketplaceStack-dev/LokKalaServiceFn",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "xray:PutTraceSegments",
+                                    "xray:PutTelemetryRecords"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging",
+                                    "s3:Abort*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "PaintingsBucketE7A48EC0",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/*"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "UsersTable9725E9C8",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "UsersTable9725E9C8",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/index/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "ItemsReadModelTable60A37FC6",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "ItemsReadModelTable60A37FC6",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/index/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "ItemUploadsTable6145784F",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Ref": "AWS::NoValue"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "OrdersTable315BB997",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "OrdersTable315BB997",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/index/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "OrderStatusTableA172E078",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Ref": "AWS::NoValue"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "InventoryTableFD135387",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Ref": "AWS::NoValue"
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "LokKalaServiceFnServiceRoleDefaultPolicy039835CB",
+                            "roles": [
+                              {
+                                "Ref": "LokKalaServiceFnServiceRole6C1328A6"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.170.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.170.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": "cdk-hnb659fds-assets-022706514418-us-east-1",
+                      "s3Key": "36df2538f19480b26582be7f153747736581b5eef8e91f87b96c9319f13c5f65.zip"
+                    },
+                    "environment": {
+                      "variables": {
+                        "USERS_TABLE_NAME": {
+                          "Ref": "UsersTable9725E9C8"
+                        },
+                        "ITEMS_READ_MODEL_TABLE_NAME": {
+                          "Ref": "ItemsReadModelTable60A37FC6"
+                        },
+                        "ITEM_UPLOADS_TABLE_NAME": {
+                          "Ref": "ItemUploadsTable6145784F"
+                        },
+                        "ORDERS_TABLE_NAME": {
+                          "Ref": "OrdersTable315BB997"
+                        },
+                        "ORDER_STATUS_TABLE_NAME": {
+                          "Ref": "OrderStatusTableA172E078"
+                        },
+                        "INVENTORY_TABLE_NAME": {
+                          "Ref": "InventoryTableFD135387"
+                        },
+                        "PAINTINGS_BUCKET_NAME": {
+                          "Ref": "PaintingsBucketE7A48EC0"
+                        },
+                        "CDN_BASE_URL": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "https://",
+                              {
+                                "Fn::GetAtt": [
+                                  "Distribution830FAC52",
+                                  "DomainName"
+                                ]
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "handler": "index.handler",
+                    "memorySize": 256,
+                    "role": {
+                      "Fn::GetAtt": [
+                        "LokKalaServiceFnServiceRole6C1328A6",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "nodejs18.x",
+                    "timeout": 30,
+                    "tracingConfig": {
+                      "mode": "Active"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.170.0"
+                }
+              },
+              "LogRetention": {
+                "id": "LogRetention",
+                "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/LogRetention",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/LogRetention/Resource",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.LogRetention",
+                  "version": "2.170.0"
+                }
+              },
+              "LogGroup": {
+                "id": "LogGroup",
+                "path": "ArtMarketplaceStack-dev/LokKalaServiceFn/LogGroup",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.170.0"
+            }
+          },
+          "OrderServiceFn": {
+            "id": "OrderServiceFn",
+            "path": "ArtMarketplaceStack-dev/OrderServiceFn",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "ArtMarketplaceStack-dev/OrderServiceFn/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "ArtMarketplaceStack-dev/OrderServiceFn/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/OrderServiceFn/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "ArtMarketplaceStack-dev/OrderServiceFn/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ArtMarketplaceStack-dev/OrderServiceFn/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "xray:PutTraceSegments",
+                                    "xray:PutTelemetryRecords"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "OrdersTable315BB997",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "OrdersTable315BB997",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/index/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "OrderStatusTableA172E078",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Ref": "AWS::NoValue"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "InventoryTableFD135387",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Ref": "AWS::NoValue"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:Query",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:Scan",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:UpdateItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "ShipmentsTable18759DD3",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "ShipmentsTable18759DD3",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/index/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "OrderServiceFnServiceRoleDefaultPolicy439E7A73",
+                            "roles": [
+                              {
+                                "Ref": "OrderServiceFnServiceRoleB263A607"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.170.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.170.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "ArtMarketplaceStack-dev/OrderServiceFn/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "ArtMarketplaceStack-dev/OrderServiceFn/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.170.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "ArtMarketplaceStack-dev/OrderServiceFn/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.170.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/OrderServiceFn/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": "cdk-hnb659fds-assets-022706514418-us-east-1",
+                      "s3Key": "aa85ddda05376783d4b4a82c05239a16f8c55ceaee220267a072d443917ebf3d.zip"
+                    },
+                    "environment": {
+                      "variables": {
+                        "ORDERS_TABLE_NAME": {
+                          "Ref": "OrdersTable315BB997"
+                        },
+                        "ORDER_STATUS_TABLE_NAME": {
+                          "Ref": "OrderStatusTableA172E078"
+                        },
+                        "INVENTORY_TABLE_NAME": {
+                          "Ref": "InventoryTableFD135387"
+                        },
+                        "SHIPMENTS_TABLE_NAME": {
+                          "Ref": "ShipmentsTable18759DD3"
+                        }
+                      }
+                    },
+                    "handler": "index.handler",
+                    "memorySize": 256,
+                    "role": {
+                      "Fn::GetAtt": [
+                        "OrderServiceFnServiceRoleB263A607",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "nodejs18.x",
+                    "timeout": 30,
+                    "tracingConfig": {
+                      "mode": "Active"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.170.0"
+                }
+              },
+              "LogRetention": {
+                "id": "LogRetention",
+                "path": "ArtMarketplaceStack-dev/OrderServiceFn/LogRetention",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ArtMarketplaceStack-dev/OrderServiceFn/LogRetention/Resource",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.170.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.LogRetention",
+                  "version": "2.170.0"
+                }
+              },
+              "LogGroup": {
+                "id": "LogGroup",
+                "path": "ArtMarketplaceStack-dev/OrderServiceFn/LogGroup",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.170.0"
+            }
+          },
+          "ArtMarketplaceDashboard": {
+            "id": "ArtMarketplaceDashboard",
+            "path": "ArtMarketplaceStack-dev/ArtMarketplaceDashboard",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/ArtMarketplaceDashboard/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudWatch::Dashboard",
+                  "aws:cdk:cloudformation:props": {
+                    "dashboardBody": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "{\"start\":\"-PT1H\",\"widgets\":[{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"LokKala – Invocations\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+                          {
+                            "Ref": "LokKalaServiceFnA57A439D"
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"LokKala – Errors\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+                          {
+                            "Ref": "LokKalaServiceFnA57A439D"
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"LokKala – Duration (ms)\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"",
+                          {
+                            "Ref": "LokKalaServiceFnA57A439D"
+                          },
+                          "\"]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":6,\"properties\":{\"view\":\"timeSeries\",\"title\":\"OrderService – Invocations\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+                          {
+                            "Ref": "OrderServiceFn4703DC85"
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":6,\"properties\":{\"view\":\"timeSeries\",\"title\":\"OrderService – Errors\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+                          {
+                            "Ref": "OrderServiceFn4703DC85"
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":6,\"properties\":{\"view\":\"timeSeries\",\"title\":\"OrderService – Duration (ms)\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"",
+                          {
+                            "Ref": "OrderServiceFn4703DC85"
+                          },
+                          "\"]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":12,\"properties\":{\"view\":\"timeSeries\",\"title\":\"CQRSFlatten – Invocations\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+                          {
+                            "Ref": "CqrsFlattenFn8BC7B25D"
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":12,\"properties\":{\"view\":\"timeSeries\",\"title\":\"CQRSFlatten – Errors\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+                          {
+                            "Ref": "CqrsFlattenFn8BC7B25D"
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":12,\"properties\":{\"view\":\"timeSeries\",\"title\":\"CQRSFlatten – Duration (ms)\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"",
+                          {
+                            "Ref": "CqrsFlattenFn8BC7B25D"
+                          },
+                          "\"]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":0,\"y\":18,\"properties\":{\"view\":\"timeSeries\",\"title\":\"API Gateway – Request Count\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/ApiGateway\",\"Count\",\"ApiId\",\"",
+                          {
+                            "Ref": "ArtMarketplaceApi2A6E120C"
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":12,\"y\":18,\"properties\":{\"view\":\"timeSeries\",\"title\":\"API Gateway – 5XX Errors\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/ApiGateway\",\"5XXError\",\"ApiId\",\"",
+                          {
+                            "Ref": "ArtMarketplaceApi2A6E120C"
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":0,\"y\":24,\"properties\":{\"view\":\"timeSeries\",\"title\":\"ALB – Request Count\",\"region\":\"",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          "\",\"metrics\":[[\"AWS/ApplicationELB\",\"RequestCount\",\"LoadBalancer\",\"",
+                          {
+                            "Fn::GetAtt": [
+                              "Alb16C2F182",
+                              "LoadBalancerFullName"
+                            ]
+                          },
+                          "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}}]}"
+                        ]
+                      ]
+                    },
+                    "dashboardName": "ArtMarketplace-dev"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudwatch.CfnDashboard",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cloudwatch.Dashboard",
+              "version": "2.170.0"
+            }
+          },
+          "LokKalaErrorsAlarm": {
+            "id": "LokKalaErrorsAlarm",
+            "path": "ArtMarketplaceStack-dev/LokKalaErrorsAlarm",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/LokKalaErrorsAlarm/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
+                  "aws:cdk:cloudformation:props": {
+                    "alarmDescription": "LokKala Lambda errors exceed threshold",
+                    "alarmName": "ArtMarketplace-dev-LokKala-Errors",
+                    "comparisonOperator": "GreaterThanOrEqualToThreshold",
+                    "dimensions": [
+                      {
+                        "name": "FunctionName",
+                        "value": {
+                          "Ref": "LokKalaServiceFnA57A439D"
+                        }
+                      }
+                    ],
+                    "evaluationPeriods": 1,
+                    "metricName": "Errors",
+                    "namespace": "AWS/Lambda",
+                    "period": 300,
+                    "statistic": "Sum",
+                    "threshold": 5,
+                    "treatMissingData": "notBreaching"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudwatch.CfnAlarm",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cloudwatch.Alarm",
+              "version": "2.170.0"
+            }
+          },
+          "OrderServiceErrorsAlarm": {
+            "id": "OrderServiceErrorsAlarm",
+            "path": "ArtMarketplaceStack-dev/OrderServiceErrorsAlarm",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/OrderServiceErrorsAlarm/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
+                  "aws:cdk:cloudformation:props": {
+                    "alarmDescription": "OrderService Lambda errors exceed threshold",
+                    "alarmName": "ArtMarketplace-dev-OrderService-Errors",
+                    "comparisonOperator": "GreaterThanOrEqualToThreshold",
+                    "dimensions": [
+                      {
+                        "name": "FunctionName",
+                        "value": {
+                          "Ref": "OrderServiceFn4703DC85"
+                        }
+                      }
+                    ],
+                    "evaluationPeriods": 1,
+                    "metricName": "Errors",
+                    "namespace": "AWS/Lambda",
+                    "period": 300,
+                    "statistic": "Sum",
+                    "threshold": 5,
+                    "treatMissingData": "notBreaching"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudwatch.CfnAlarm",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cloudwatch.Alarm",
+              "version": "2.170.0"
+            }
+          },
+          "CQRSFlattenErrorsAlarm": {
+            "id": "CQRSFlattenErrorsAlarm",
+            "path": "ArtMarketplaceStack-dev/CQRSFlattenErrorsAlarm",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/CQRSFlattenErrorsAlarm/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
+                  "aws:cdk:cloudformation:props": {
+                    "alarmDescription": "CQRSFlatten Lambda errors exceed threshold",
+                    "alarmName": "ArtMarketplace-dev-CQRSFlatten-Errors",
+                    "comparisonOperator": "GreaterThanOrEqualToThreshold",
+                    "dimensions": [
+                      {
+                        "name": "FunctionName",
+                        "value": {
+                          "Ref": "CqrsFlattenFn8BC7B25D"
+                        }
+                      }
+                    ],
+                    "evaluationPeriods": 1,
+                    "metricName": "Errors",
+                    "namespace": "AWS/Lambda",
+                    "period": 300,
+                    "statistic": "Sum",
+                    "threshold": 5,
+                    "treatMissingData": "notBreaching"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudwatch.CfnAlarm",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cloudwatch.Alarm",
+              "version": "2.170.0"
+            }
+          },
+          "Api5XXAlarm": {
+            "id": "Api5XXAlarm",
+            "path": "ArtMarketplaceStack-dev/Api5XXAlarm",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ArtMarketplaceStack-dev/Api5XXAlarm/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
+                  "aws:cdk:cloudformation:props": {
+                    "alarmDescription": "API Gateway 5XX errors detected",
+                    "alarmName": "ArtMarketplace-dev-API-5XX",
+                    "comparisonOperator": "GreaterThanOrEqualToThreshold",
+                    "dimensions": [
+                      {
+                        "name": "ApiId",
+                        "value": {
+                          "Ref": "ArtMarketplaceApi2A6E120C"
+                        }
+                      }
+                    ],
+                    "evaluationPeriods": 1,
+                    "metricName": "5XXError",
+                    "namespace": "AWS/ApiGateway",
+                    "period": 300,
+                    "statistic": "Sum",
+                    "threshold": 1,
+                    "treatMissingData": "notBreaching"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudwatch.CfnAlarm",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cloudwatch.Alarm",
+              "version": "2.170.0"
+            }
+          },
+          "Stage": {
+            "id": "Stage",
+            "path": "ArtMarketplaceStack-dev/Stage",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "Region": {
+            "id": "Region",
+            "path": "ArtMarketplaceStack-dev/Region",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
           "AppUrl": {
             "id": "AppUrl",
-            "path": "ArtMarketplaceStack/AppUrl",
+            "path": "ArtMarketplaceStack-dev/AppUrl",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -1739,7 +4598,7 @@
           },
           "ApiUrl": {
             "id": "ApiUrl",
-            "path": "ArtMarketplaceStack/ApiUrl",
+            "path": "ArtMarketplaceStack-dev/ApiUrl",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -1747,7 +4606,7 @@
           },
           "PaintingsBucketName": {
             "id": "PaintingsBucketName",
-            "path": "ArtMarketplaceStack/PaintingsBucketName",
+            "path": "ArtMarketplaceStack-dev/PaintingsBucketName",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -1755,7 +4614,103 @@
           },
           "PaintingsTableName": {
             "id": "PaintingsTableName",
-            "path": "ArtMarketplaceStack/PaintingsTableName",
+            "path": "ArtMarketplaceStack-dev/PaintingsTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "ArtifactsTableName": {
+            "id": "ArtifactsTableName",
+            "path": "ArtMarketplaceStack-dev/ArtifactsTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "ItemUploadsTableName": {
+            "id": "ItemUploadsTableName",
+            "path": "ArtMarketplaceStack-dev/ItemUploadsTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "ItemsReadModelTableName": {
+            "id": "ItemsReadModelTableName",
+            "path": "ArtMarketplaceStack-dev/ItemsReadModelTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "UsersTableName": {
+            "id": "UsersTableName",
+            "path": "ArtMarketplaceStack-dev/UsersTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "OrdersTableName": {
+            "id": "OrdersTableName",
+            "path": "ArtMarketplaceStack-dev/OrdersTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "OrderStatusTableName": {
+            "id": "OrderStatusTableName",
+            "path": "ArtMarketplaceStack-dev/OrderStatusTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "InventoryTableName": {
+            "id": "InventoryTableName",
+            "path": "ArtMarketplaceStack-dev/InventoryTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "ShipmentsTableName": {
+            "id": "ShipmentsTableName",
+            "path": "ArtMarketplaceStack-dev/ShipmentsTableName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "LokKalaApiPath": {
+            "id": "LokKalaApiPath",
+            "path": "ArtMarketplaceStack-dev/LokKalaApiPath",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "OrdersApiPath": {
+            "id": "OrdersApiPath",
+            "path": "ArtMarketplaceStack-dev/OrdersApiPath",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "DbEndpoint": {
+            "id": "DbEndpoint",
+            "path": "ArtMarketplaceStack-dev/DbEndpoint",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "DbSecretArn": {
+            "id": "DbSecretArn",
+            "path": "ArtMarketplaceStack-dev/DbSecretArn",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -1763,7 +4718,7 @@
           },
           "RedisEndpoint": {
             "id": "RedisEndpoint",
-            "path": "ArtMarketplaceStack/RedisEndpoint",
+            "path": "ArtMarketplaceStack-dev/RedisEndpoint",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -1771,7 +4726,15 @@
           },
           "InstanceId": {
             "id": "InstanceId",
-            "path": "ArtMarketplaceStack/InstanceId",
+            "path": "ArtMarketplaceStack-dev/InstanceId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "DashboardUrl": {
+            "id": "DashboardUrl",
+            "path": "ArtMarketplaceStack-dev/DashboardUrl",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
@@ -1779,11 +4742,11 @@
           },
           "CDKMetadata": {
             "id": "CDKMetadata",
-            "path": "ArtMarketplaceStack/CDKMetadata",
+            "path": "ArtMarketplaceStack-dev/CDKMetadata",
             "children": {
               "Default": {
                 "id": "Default",
-                "path": "ArtMarketplaceStack/CDKMetadata/Default",
+                "path": "ArtMarketplaceStack-dev/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
                   "version": "2.170.0"
@@ -1797,7 +4760,7 @@
           },
           "BootstrapVersion": {
             "id": "BootstrapVersion",
-            "path": "ArtMarketplaceStack/BootstrapVersion",
+            "path": "ArtMarketplaceStack-dev/BootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
               "version": "2.170.0"
@@ -1805,7 +4768,7 @@
           },
           "CheckBootstrapVersion": {
             "id": "CheckBootstrapVersion",
-            "path": "ArtMarketplaceStack/CheckBootstrapVersion",
+            "path": "ArtMarketplaceStack-dev/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
               "version": "2.170.0"

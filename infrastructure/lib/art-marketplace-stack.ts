@@ -16,6 +16,8 @@ import * as route53_targets from 'aws-cdk-lib/aws-route53-targets';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as lambdaEventSources from 'aws-cdk-lib/aws-lambda-event-sources';
+import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
+import * as logs from 'aws-cdk-lib/aws-logs';
 import * as path from 'path';
 import { Construct } from 'constructs';
 import type { EnvConfig } from './env-config';
@@ -172,6 +174,9 @@ export class ArtMarketplaceStack extends cdk.Stack {
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
+    // Log retention based on stage (dev=1 week, uat/prod=30 days)
+    const logRetention = envConfig.stage === 'dev' ? logs.RetentionDays.ONE_WEEK : logs.RetentionDays.ONE_MONTH;
+
     // ─── CQRS: Lambda flattens stream events into read model ───────────────────
     const cqrsFlattenFn = new lambda.Function(this, 'CqrsFlattenFn', {
       runtime: lambda.Runtime.NODEJS_18_X,
@@ -182,6 +187,8 @@ export class ArtMarketplaceStack extends cdk.Stack {
       },
       timeout: cdk.Duration.seconds(60),
       memorySize: envConfig.lambdaMemoryMb,
+      tracing: lambda.Tracing.ACTIVE,
+      logRetention,
     });
     itemUploadsTable.grantStreamRead(cqrsFlattenFn);
     itemsReadModelTable.grantReadWriteData(cqrsFlattenFn);
@@ -434,6 +441,8 @@ export class ArtMarketplaceStack extends cdk.Stack {
       },
       timeout: cdk.Duration.seconds(30),
       memorySize: 256,
+      tracing: lambda.Tracing.ACTIVE,
+      logRetention,
     });
     paintingsBucket.grantPut(lokkalaServiceFn);
     usersTable.grantReadData(lokkalaServiceFn);
@@ -455,6 +464,8 @@ export class ArtMarketplaceStack extends cdk.Stack {
       },
       timeout: cdk.Duration.seconds(30),
       memorySize: 256,
+      tracing: lambda.Tracing.ACTIVE,
+      logRetention,
     });
     ordersTable.grantReadWriteData(orderServiceFn);
     orderStatusTable.grantReadWriteData(orderServiceFn);
@@ -473,6 +484,107 @@ export class ArtMarketplaceStack extends cdk.Stack {
     httpApi.addRoutes({ path: '/api/lokkala/{proxy+}', methods: [apigatewayv2.HttpMethod.ANY], integration: lokkalaIntegration });
     httpApi.addRoutes({ path: '/api/orders', methods: [apigatewayv2.HttpMethod.ANY], integration: orderServiceIntegration });
     httpApi.addRoutes({ path: '/api/orders/{proxy+}', methods: [apigatewayv2.HttpMethod.ANY], integration: orderServiceIntegration });
+
+    // ─── CloudWatch Monitoring ───────────────────────────────────────────────
+    const dashboard = new cloudwatch.Dashboard(this, 'ArtMarketplaceDashboard', {
+      dashboardName: `ArtMarketplace-${stage}`,
+      defaultInterval: cdk.Duration.hours(1),
+    });
+
+    const lambdaMetrics = [
+      { fn: lokkalaServiceFn, name: 'LokKala' },
+      { fn: orderServiceFn, name: 'OrderService' },
+      { fn: cqrsFlattenFn, name: 'CQRSFlatten' },
+    ];
+
+    lambdaMetrics.forEach(({ fn, name }) => {
+      dashboard.addWidgets(
+        new cloudwatch.GraphWidget({
+          title: `${name} – Invocations`,
+          left: [fn.metricInvocations({ statistic: 'Sum', period: cdk.Duration.minutes(5) })],
+          width: 8,
+        }),
+        new cloudwatch.GraphWidget({
+          title: `${name} – Errors`,
+          left: [fn.metricErrors({ statistic: 'Sum', period: cdk.Duration.minutes(5) })],
+          width: 8,
+        }),
+        new cloudwatch.GraphWidget({
+          title: `${name} – Duration (ms)`,
+          left: [fn.metricDuration({ statistic: 'Average', period: cdk.Duration.minutes(5) })],
+          width: 8,
+        })
+      );
+    });
+
+    const apiId = httpApi.apiId;
+    if (apiId) {
+      dashboard.addWidgets(
+        new cloudwatch.GraphWidget({
+          title: 'API Gateway – Request Count',
+          left: [
+            new cloudwatch.Metric({
+              namespace: 'AWS/ApiGateway',
+              metricName: 'Count',
+              dimensionsMap: { ApiId: apiId },
+              statistic: 'Sum',
+              period: cdk.Duration.minutes(5),
+            }),
+          ],
+          width: 12,
+        }),
+        new cloudwatch.GraphWidget({
+          title: 'API Gateway – 5XX Errors',
+          left: [
+            new cloudwatch.Metric({
+              namespace: 'AWS/ApiGateway',
+              metricName: '5XXError',
+              dimensionsMap: { ApiId: apiId },
+              statistic: 'Sum',
+              period: cdk.Duration.minutes(5),
+            }),
+          ],
+          width: 12,
+        })
+      );
+    }
+
+    dashboard.addWidgets(
+      new cloudwatch.GraphWidget({
+        title: 'ALB – Request Count',
+        left: [
+          alb.metricRequestCount({ statistic: 'Sum', period: cdk.Duration.minutes(5) }),
+        ],
+        width: 12,
+      })
+    );
+
+    // Alarms: Lambda errors and API 5XX
+    lambdaMetrics.forEach(({ fn, name }) => {
+      fn.metricErrors({ period: cdk.Duration.minutes(5) }).createAlarm(this, `${name}ErrorsAlarm`, {
+        alarmName: `ArtMarketplace-${stage}-${name}-Errors`,
+        alarmDescription: `${name} Lambda errors exceed threshold`,
+        threshold: 5,
+        evaluationPeriods: 1,
+        treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
+      });
+    });
+
+    if (apiId) {
+      new cloudwatch.Metric({
+        namespace: 'AWS/ApiGateway',
+        metricName: '5XXError',
+        dimensionsMap: { ApiId: apiId },
+        statistic: 'Sum',
+        period: cdk.Duration.minutes(5),
+      }).createAlarm(this, 'Api5XXAlarm', {
+        alarmName: `ArtMarketplace-${stage}-API-5XX`,
+        alarmDescription: 'API Gateway 5XX errors detected',
+        threshold: 1,
+        evaluationPeriods: 1,
+        treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
+      });
+    }
 
     // ─── Outputs ─────────────────────────────────────────────────────────────
     const exportSuffix = stage;
@@ -540,6 +652,11 @@ export class ArtMarketplaceStack extends cdk.Stack {
       value: instance.instanceId,
       description: 'EC2 instance ID (app host)',
       exportName: `ArtMarketplaceInstanceId-${exportSuffix}`,
+    });
+    new cdk.CfnOutput(this, 'DashboardUrl', {
+      value: `https://${region}.console.aws.amazon.com/cloudwatch/home?region=${region}#dashboards:name=ArtMarketplace-${stage}`,
+      description: 'CloudWatch Dashboard URL for monitoring',
+      exportName: `ArtMarketplaceDashboardUrl-${exportSuffix}`,
     });
   }
 }

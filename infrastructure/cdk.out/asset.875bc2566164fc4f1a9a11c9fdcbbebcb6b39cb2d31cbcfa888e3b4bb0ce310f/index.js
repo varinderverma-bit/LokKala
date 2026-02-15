@@ -3,7 +3,6 @@
  */
 
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { logger } from './logger.js';
 import { DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand, UpdateCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
 
 const dynamo = DynamoDBDocumentClient.from(new DynamoDBClient({}));
@@ -178,10 +177,6 @@ export const handler = async (event) => {
   const pathSegments = path.split('/').filter(Boolean);
   const body = event.body;
   const query = event.queryStringParameters || {};
-  const requestId = event.requestContext?.requestId || event.requestContext?.http?.requestId || 'unknown';
-
-  logger.info('Request received', { requestId, method, path });
-
   try {
     // path after /api/orders is e.g. "" or "123" or "123/status" or "inventory" or "inventory/item1"
     const first = pathSegments[0];
@@ -230,10 +225,9 @@ export const handler = async (event) => {
       return handleGetOrder(orderId);
     }
 
-    logger.warn('Route not found', { requestId, path, method });
     return json({ error: 'Not found', path, method }, 404);
   } catch (err) {
-    logger.error('Unhandled error', { requestId, error: err.message, stack: err.stack });
+    console.error('OrderService error:', err);
     return json({ error: 'Internal server error' }, 500);
   }
 };

@@ -4,7 +4,6 @@
  */
 
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { logger } from './logger.js';
 import { DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
@@ -63,17 +62,14 @@ async function handleLogin(body) {
   }));
   const user = res.Items?.[0];
   if (!user) {
-    logger.warn('Login failed: user not found');
     return json({ error: 'Invalid credentials' }, 401);
   }
   // In production: use bcrypt.compare(password, user.passwordHash)
   const passwordOk = user.passwordHash === password;
   if (!passwordOk) {
-    logger.warn('Login failed: invalid password', { userId: user.userId });
     return json({ error: 'Invalid credentials' }, 401);
   }
   const token = `lk_${randomUUID()}`;
-  logger.info('Login successful', { userId: user.userId, email: user.email });
   return json({ token, userId: user.userId, email: user.email });
 }
 
@@ -227,7 +223,6 @@ async function handleCreateOrder(body) {
     }
   }
 
-  logger.info('Order created', { orderId, userId, total, itemCount: items.length });
   return json({ orderId, status: 'CREATED', total });
 }
 
@@ -237,9 +232,6 @@ export const handler = async (event) => {
   const pathSegments = path.split('/').filter(Boolean);
   const body = event.body;
   const query = event.queryStringParameters || {};
-  const requestId = event.requestContext?.requestId || event.requestContext?.http?.requestId || 'unknown';
-
-  logger.info('Request received', { requestId, method, path });
 
   try {
     // POST /auth/login
@@ -263,10 +255,9 @@ export const handler = async (event) => {
       return handleCreateOrder(body);
     }
 
-    logger.warn('Route not found', { requestId, path, method });
     return json({ error: 'Not found', path, method }, 404);
   } catch (err) {
-    logger.error('Unhandled error', { requestId, error: err.message, stack: err.stack });
+    console.error('LokKalaService error:', err);
     return json({ error: 'Internal server error' }, 500);
   }
 };
