@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { mockBaseQuery } from './baseQuery';
+import { baseQuery } from './baseQuery';
 import type { ArtListQuery, PaginatedResponse } from '@/types';
 import type { Region, Artist, ArtItem } from '@/types';
 
 export const artApi = createApi({
   reducerPath: 'artApi',
-  baseQuery: mockBaseQuery,
+  baseQuery,
   tagTypes: ['Regions', 'Region', 'Artists', 'Artist', 'ArtList', 'Art', 'Recommendations'],
   endpoints: (builder) => ({
     getRegions: builder.query<Region[], void>({ query: () => ({ type: 'getRegions' }), providesTags: ['Regions'] }),

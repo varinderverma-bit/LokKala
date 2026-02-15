@@ -1,0 +1,368 @@
+openapi: 3.0.3
+info:
+  title: Art Marketplace API
+  description: |
+    LokKala BFF (artifacts, auth, uploads, order creation) and Order Service (orders, status, shipments, inventory).
+    Base URL is the API Gateway or CloudFront URL (e.g. from CDK output `ArtMarketplaceApiUrl`).
+  version: 1.0.0
+
+servers:
+  - url: https://{apiHost}
+    variables:
+      apiHost:
+        default: your-api-id.execute-api.region.amazonaws.com
+
+paths:
+  # ─── LokKala BFF (/api/lokkala) ─────────────────────────────────────────────
+  /api/lokkala/auth/login:
+    post:
+      summary: Login
+      description: Validate user credentials and return a token placeholder.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: { type: string }
+                  userId: { type: string }
+                  email: { type: string }
+        '400':
+          description: email and password required
+        '401':
+          description: Invalid credentials
+
+  /api/lokkala/upload/presign:
+    post:
+      summary: Get presigned upload URL
+      description: Generate a presigned S3 URL for uploading a painting image.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [objectKey, contentType]
+              properties:
+                objectKey: { type: string }
+                contentType: { type: string }
+                artifactId: { type: string, description: optional; used to derive key if objectKey not set }
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uploadUrl: { type: string }
+                  objectKey: { type: string }
+                  cdnUrl: { type: string }
+        '400':
+          description: objectKey and contentType required
+
+  /api/lokkala/artifacts:
+    get:
+      summary: List artifacts
+      description: Paginated list of art items with CDN image URLs.
+      parameters:
+        - name: page
+          in: query
+          schema: { type: integer, minimum: 1, default: 1 }
+        - name: pageSize
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 100, default: 12 }
+        - name: regionId
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: { type: array, items: { $ref: '#/components/schemas/Artifact' } }
+                  total: { type: integer }
+                  page: { type: integer }
+                  pageSize: { type: integer }
+                  totalPages: { type: integer }
+
+  /api/lokkala/artifacts/{id}:
+    get:
+      summary: Get artifact by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Artifact' }
+        '404':
+          description: Not found
+
+  /api/lokkala/orders:
+    post:
+      summary: Create order (LokKala)
+      description: Capture order with line items; placeholder for payment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [userId, items]
+              properties:
+                userId: { type: string }
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      artId: { type: string }
+                      itemId: { type: string }
+                      id: { type: string }
+                      price: { type: number }
+                      quantity: { type: integer, default: 1 }
+                paymentMethodId: { type: string }
+                shippingAddress: { type: object }
+      responses:
+        '200':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId: { type: string }
+                  status: { type: string, example: CREATED }
+                  total: { type: number }
+        '400':
+          description: userId and items array required
+
+  # ─── Order Service (/api/orders) ───────────────────────────────────────────
+  /api/orders:
+    get:
+      summary: List orders for user
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orders: { type: array, items: { $ref: '#/components/schemas/Order' } }
+        '400':
+          description: userId query required
+
+  /api/orders/{orderId}:
+    get:
+      summary: Get order by ID
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Order' }
+        '404':
+          description: Order not found
+
+  /api/orders/{orderId}/status:
+    get:
+      summary: Get order status history
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId: { type: string }
+                  statuses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timestamp: { type: string }
+                        status: { type: string }
+                        message: { type: string }
+    patch:
+      summary: Update order status (e.g. admin)
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: { type: string }
+                message: { type: string }
+      responses:
+        '200':
+          description: Updated
+        '400':
+          description: status required
+
+  /api/orders/{orderId}/shipment:
+    get:
+      summary: Get shipment(s) for order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId: { type: string }
+                  shipments: { type: array }
+    patch:
+      summary: Add or update shipment
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                trackingNumber: { type: string }
+                carrier: { type: string }
+                status: { type: string }
+                events: { type: array }
+      responses:
+        '200':
+          description: Created/updated shipment
+
+  /api/orders/inventory:
+    get:
+      summary: List inventory
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: { type: array }
+
+  /api/orders/inventory/{itemId}:
+    get:
+      summary: Get inventory item
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Item not found
+    patch:
+      summary: Update inventory quantity
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity: { type: integer }
+                reserved: { type: integer }
+      responses:
+        '200':
+          description: Updated
+
+components:
+  schemas:
+    Artifact:
+      type: object
+      properties:
+        id: { type: string }
+        title: { type: string }
+        price: { type: number }
+        currency: { type: string }
+        images: { type: array, items: { type: string } }
+        imageKeys: { type: array, items: { type: string } }
+        regionId: { type: string }
+        userId: { type: string }
+        style: { type: string }
+        medium: { type: string }
+        dimensions: { type: string }
+        yearCreated: { type: integer }
+        story: { type: string }
+        significance: { type: array, items: { type: string } }
+        technique: { type: string }
+        materials: { type: string }
+        tags: { type: array, items: { type: string } }
+        availability: { type: string }
+        shippingFrom: { type: string }
+        etaDays: { type: integer }
+        popularityScore: { type: number }
+        createdAt: { type: string }
+    Order:
+      type: object
+      properties:
+        orderId: { type: string }
+        userId: { type: string }
+        items: { type: array }
+        total: { type: number }
+        currency: { type: string }
+        status: { type: string }
+        paymentMethodId: { type: string }
+        shippingAddress: { type: object }
+        createdAt: { type: string }
+        updatedAt: { type: string }

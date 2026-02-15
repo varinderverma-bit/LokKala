@@ -23,8 +23,8 @@ export function HomePage() {
           <h2 className="font-display text-2xl font-bold text-primary-900 dark:text-white sm:text-3xl">Featured Regions</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {regionsLoading
-              ? Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-48 animate-pulse rounded-xl bg-primary-200 dark:bg-gray-700" />)
-              : regions?.slice(0, 4).map((r) => (
+              ? Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-48 animate-pulse rounded-xl bg-primary-200 dark:bg-gray-700" />)
+              : regions?.slice(0, 5).map((r) => (
                   <Link key={r.id} to={`/explore?region=${r.id}`} className="group block overflow-hidden rounded-xl bg-white shadow-md hover:shadow-lg dark:bg-gray-800">
                     <div className="aspect-[4/3] overflow-hidden"><img src={r.heroImage} alt={r.name} className="h-full w-full object-cover group-hover:scale-105" /></div>
                     <div className="p-4">

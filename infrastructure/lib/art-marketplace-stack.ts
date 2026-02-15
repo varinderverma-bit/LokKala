@@ -14,11 +14,31 @@ import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as route53_targets from 'aws-cdk-lib/aws-route53-targets';
 import * as rds from 'aws-cdk-lib/aws-rds';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as lambdaEventSources from 'aws-cdk-lib/aws-lambda-event-sources';
+import * as path from 'path';
 import { Construct } from 'constructs';
+import type { EnvConfig } from './env-config';
+
+export interface ArtMarketplaceStackProps extends cdk.StackProps {
+  envConfig: EnvConfig;
+}
+
+function parseInstanceType(s: string): [ec2.InstanceClass, ec2.InstanceSize] {
+  const [family, size] = s.split('.').map((x) => x?.toUpperCase() || '');
+  const cls = family in ec2.InstanceClass ? (ec2.InstanceClass as unknown as Record<string, ec2.InstanceClass>)[family] : ec2.InstanceClass.T3;
+  const sz = size in ec2.InstanceSize ? (ec2.InstanceSize as unknown as Record<string, ec2.InstanceSize>)[size] : ec2.InstanceSize.SMALL;
+  return [cls, sz];
+}
 
 export class ArtMarketplaceStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: ArtMarketplaceStackProps) {
     super(scope, id, props);
+
+    const { envConfig } = props;
+    const { stage, region, account } = envConfig;
+    const removalPolicy =
+      envConfig.removalPolicy === 'destroy' ? cdk.RemovalPolicy.DESTROY : cdk.RemovalPolicy.RETAIN;
 
     const domainName = this.node.tryGetContext('domainName') as string | undefined;
     const certificateArn = this.node.tryGetContext('certificateArn') as string | undefined;
@@ -27,16 +47,16 @@ export class ArtMarketplaceStack extends cdk.Stack {
 
     // ─── VPC ─────────────────────────────────────────────────────────────────
     const vpc = new ec2.Vpc(this, 'ArtMarketplaceVpc', {
-      maxAzs: 2,
-      natGateways: 1,
+      maxAzs: envConfig.maxAzs,
+      natGateways: envConfig.natGateways,
     });
 
     // ─── S3 bucket for painting images (object storage) ───────────────────────
     const paintingsBucket = new s3.Bucket(this, 'PaintingsBucket', {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       encryption: s3.BucketEncryption.S3_MANAGED,
-      removalPolicy: cdk.RemovalPolicy.RETAIN,
-      autoDeleteObjects: false,
+      removalPolicy,
+      autoDeleteObjects: envConfig.removalPolicy === 'destroy',
     });
 
     // ─── DynamoDB table for paintings metadata ───────────────────────────────
@@ -44,7 +64,7 @@ export class ArtMarketplaceStack extends cdk.Stack {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'regionId', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: cdk.RemovalPolicy.RETAIN,
+      removalPolicy,
     });
     paintingsTable.addGlobalSecondaryIndex({
       indexName: 'regionId-createdAt-index',
@@ -55,9 +75,9 @@ export class ArtMarketplaceStack extends cdk.Stack {
 
     // ─── Redis (ElastiCache) for latency reduction ───────────────────────────
     const redisSubnetGroup = new elasticache.CfnSubnetGroup(this, 'RedisSubnetGroup', {
-      description: 'Subnet group for Redis cache',
+      description: `Redis cache subnet group (${stage})`,
       subnetIds: vpc.privateSubnets.map((s) => s.subnetId),
-      cacheSubnetGroupName: `art-marketplace-redis-${this.node.addr.slice(-8)}`,
+      cacheSubnetGroupName: `art-mkt-redis-${stage}-${this.node.addr.slice(-8)}`,
     });
 
     const redisSecurityGroup = new ec2.SecurityGroup(this, 'RedisSg', {
@@ -68,7 +88,7 @@ export class ArtMarketplaceStack extends cdk.Stack {
     redisSecurityGroup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.allTcp());
 
     const redisCluster = new elasticache.CfnCacheCluster(this, 'RedisCluster', {
-      cacheNodeType: 'cache.t3.micro',
+      cacheNodeType: envConfig.redisNodeType,
       engine: 'redis',
       numCacheNodes: 1,
       cacheSubnetGroupName: redisSubnetGroup.ref,
@@ -102,6 +122,7 @@ export class ArtMarketplaceStack extends cdk.Stack {
     rdsSg.addIngressRule(ec2Sg, ec2.Port.tcp(5432), 'PostgreSQL from EC2');
     rdsSg.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.allTcp());
 
+    const [rdsClass, rdsSize] = parseInstanceType(envConfig.rdsInstanceClass);
     const dbInstance = new rds.DatabaseInstance(this, 'PostgresDb', {
       vpc,
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
@@ -109,25 +130,128 @@ export class ArtMarketplaceStack extends cdk.Stack {
       engine: rds.DatabaseInstanceEngine.postgres({
         version: rds.PostgresEngineVersion.VER_16,
       }),
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MICRO),
-      allocatedStorage: 20,
-      maxAllocatedStorage: 100,
+      instanceType: ec2.InstanceType.of(rdsClass, rdsSize),
+      allocatedStorage: envConfig.rdsAllocatedStorage,
+      maxAllocatedStorage: envConfig.rdsMaxAllocatedStorage,
       databaseName: 'artmarketplace',
       credentials: rds.Credentials.fromGeneratedSecret('postgres'),
-      removalPolicy: cdk.RemovalPolicy.RETAIN,
+      removalPolicy,
+      instanceIdentifier: `art-mkt-db-${stage}`,
     });
+
+    // ─── CQRS: Write-side table (user uploads – pictures, price, etc.) ─────────
+    const itemUploadsTable = new dynamodb.Table(this, 'ItemUploadsTable', {
+      partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy,
+      stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
+    });
+
+    // ─── CQRS: Read-optimized table (flattened by Lambda from stream) ─────────
+    const itemsReadModelTable = new dynamodb.Table(this, 'ItemsReadModelTable', {
+      partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy,
+    });
+    itemsReadModelTable.addGlobalSecondaryIndex({
+      indexName: 'type-createdAt-index',
+      partitionKey: { name: 'type', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'createdAt', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+    itemsReadModelTable.addGlobalSecondaryIndex({
+      indexName: 'regionId-createdAt-index',
+      partitionKey: { name: 'regionId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'createdAt', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+    itemsReadModelTable.addGlobalSecondaryIndex({
+      indexName: 'categoryId-createdAt-index',
+      partitionKey: { name: 'categoryId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'createdAt', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    // ─── CQRS: Lambda flattens stream events into read model ───────────────────
+    const cqrsFlattenFn = new lambda.Function(this, 'CqrsFlattenFn', {
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../lambda/cqrs-flatten')),
+      environment: {
+        READ_MODEL_TABLE_NAME: itemsReadModelTable.tableName,
+      },
+      timeout: cdk.Duration.seconds(60),
+      memorySize: envConfig.lambdaMemoryMb,
+    });
+    itemUploadsTable.grantStreamRead(cqrsFlattenFn);
+    itemsReadModelTable.grantReadWriteData(cqrsFlattenFn);
+    cqrsFlattenFn.addEventSource(
+      new lambdaEventSources.DynamoEventSource(itemUploadsTable, {
+        startingPosition: lambda.StartingPosition.LATEST,
+        batchSize: 100,
+      })
+    );
 
     // ─── DynamoDB table for artifacts metadata ────────────────────────────────
     const artifactsTable = new dynamodb.Table(this, 'ArtifactsTable', {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'categoryId', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: cdk.RemovalPolicy.RETAIN,
+      removalPolicy,
     });
     artifactsTable.addGlobalSecondaryIndex({
       indexName: 'categoryId-createdAt-index',
       partitionKey: { name: 'categoryId', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'createdAt', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    // ─── Backend: Users (for LokKala login) ───────────────────────────────────
+    const usersTable = new dynamodb.Table(this, 'UsersTable', {
+      partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy,
+    });
+    usersTable.addGlobalSecondaryIndex({
+      indexName: 'email-index',
+      partitionKey: { name: 'email', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    // ─── Backend: Orders & order status (Order Service) ───────────────────────
+    const ordersTable = new dynamodb.Table(this, 'OrdersTable', {
+      partitionKey: { name: 'orderId', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy,
+    });
+    ordersTable.addGlobalSecondaryIndex({
+      indexName: 'userId-createdAt-index',
+      partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'createdAt', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    const orderStatusTable = new dynamodb.Table(this, 'OrderStatusTable', {
+      partitionKey: { name: 'orderId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'timestamp', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy,
+    });
+
+    const inventoryTable = new dynamodb.Table(this, 'InventoryTable', {
+      partitionKey: { name: 'itemId', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy,
+    });
+
+    const shipmentsTable = new dynamodb.Table(this, 'ShipmentsTable', {
+      partitionKey: { name: 'shipmentId', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy,
+    });
+    shipmentsTable.addGlobalSecondaryIndex({
+      indexName: 'orderId-index',
+      partitionKey: { name: 'orderId', type: dynamodb.AttributeType.STRING },
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
@@ -141,6 +265,8 @@ export class ArtMarketplaceStack extends cdk.Stack {
     paintingsBucket.grantReadWrite(ec2Role);
     paintingsTable.grantReadWriteData(ec2Role);
     artifactsTable.grantReadWriteData(ec2Role);
+    itemUploadsTable.grantReadWriteData(ec2Role);
+    itemsReadModelTable.grantReadData(ec2Role);
     if (dbInstance.secret) {
       dbInstance.secret.grantRead(ec2Role);
     }
@@ -159,10 +285,11 @@ export class ArtMarketplaceStack extends cdk.Stack {
       'systemctl start nginx'
     );
 
+    const [ec2Class, ec2Size] = parseInstanceType(envConfig.ec2InstanceType);
     const instance = new ec2.Instance(this, 'AppInstance', {
       vpc,
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.SMALL),
+      instanceType: ec2.InstanceType.of(ec2Class, ec2Size),
       machineImage: amzn2,
       securityGroup: ec2Sg,
       role: ec2Role,
@@ -204,7 +331,7 @@ export class ArtMarketplaceStack extends cdk.Stack {
     );
 
     const httpApi = new apigatewayv2.HttpApi(this, 'ArtMarketplaceApi', {
-      apiName: 'art-marketplace-api',
+      apiName: `art-marketplace-api-${stage}`,
       description: 'API for Art Marketplace (paintings, regions, artists)',
       corsPreflight: {
         allowOrigins: ['*'],
@@ -288,52 +415,131 @@ export class ArtMarketplaceStack extends cdk.Stack {
     // Allow CloudFront to reach the ALB (no OAC required for HTTP origin; for production use custom domain + HTTPS)
     // For HTTP origin from CF to ALB, we keep ALB on HTTP; in production you’d use HTTPS and OAC.
 
+    const cdnBaseUrl = domainName ? `https://${domainName}` : `https://${distribution.distributionDomainName}`;
+
+    // LokKalaService (BFF) and OrderService Lambdas
+    const lokkalaServiceFn = new lambda.Function(this, 'LokKalaServiceFn', {
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../lambda/lokkala-service')),
+      environment: {
+        USERS_TABLE_NAME: usersTable.tableName,
+        ITEMS_READ_MODEL_TABLE_NAME: itemsReadModelTable.tableName,
+        ITEM_UPLOADS_TABLE_NAME: itemUploadsTable.tableName,
+        ORDERS_TABLE_NAME: ordersTable.tableName,
+        ORDER_STATUS_TABLE_NAME: orderStatusTable.tableName,
+        INVENTORY_TABLE_NAME: inventoryTable.tableName,
+        PAINTINGS_BUCKET_NAME: paintingsBucket.bucketName,
+        CDN_BASE_URL: cdnBaseUrl,
+      },
+      timeout: cdk.Duration.seconds(30),
+      memorySize: 256,
+    });
+    paintingsBucket.grantPut(lokkalaServiceFn);
+    usersTable.grantReadData(lokkalaServiceFn);
+    itemsReadModelTable.grantReadData(lokkalaServiceFn);
+    itemUploadsTable.grantReadWriteData(lokkalaServiceFn);
+    ordersTable.grantReadWriteData(lokkalaServiceFn);
+    orderStatusTable.grantReadWriteData(lokkalaServiceFn);
+    inventoryTable.grantReadWriteData(lokkalaServiceFn);
+
+    const orderServiceFn = new lambda.Function(this, 'OrderServiceFn', {
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../lambda/order-service')),
+      environment: {
+        ORDERS_TABLE_NAME: ordersTable.tableName,
+        ORDER_STATUS_TABLE_NAME: orderStatusTable.tableName,
+        INVENTORY_TABLE_NAME: inventoryTable.tableName,
+        SHIPMENTS_TABLE_NAME: shipmentsTable.tableName,
+      },
+      timeout: cdk.Duration.seconds(30),
+      memorySize: 256,
+    });
+    ordersTable.grantReadWriteData(orderServiceFn);
+    orderStatusTable.grantReadWriteData(orderServiceFn);
+    inventoryTable.grantReadWriteData(orderServiceFn);
+    shipmentsTable.grantReadWriteData(orderServiceFn);
+
+    const lokkalaIntegration = new apigatewayv2_integrations.HttpLambdaIntegration(
+      'LokKalaIntegration',
+      lokkalaServiceFn
+    );
+    const orderServiceIntegration = new apigatewayv2_integrations.HttpLambdaIntegration(
+      'OrderServiceIntegration',
+      orderServiceFn
+    );
+    httpApi.addRoutes({ path: '/api/lokkala', methods: [apigatewayv2.HttpMethod.ANY], integration: lokkalaIntegration });
+    httpApi.addRoutes({ path: '/api/lokkala/{proxy+}', methods: [apigatewayv2.HttpMethod.ANY], integration: lokkalaIntegration });
+    httpApi.addRoutes({ path: '/api/orders', methods: [apigatewayv2.HttpMethod.ANY], integration: orderServiceIntegration });
+    httpApi.addRoutes({ path: '/api/orders/{proxy+}', methods: [apigatewayv2.HttpMethod.ANY], integration: orderServiceIntegration });
+
     // ─── Outputs ─────────────────────────────────────────────────────────────
-    const appUrl = domainName ? `https://${domainName}` : `https://${distribution.distributionDomainName}`;
+    const exportSuffix = stage;
+    const appUrl = cdnBaseUrl;
+    new cdk.CfnOutput(this, 'Stage', { value: stage, description: 'Deployment stage (dev/uat/prod)', exportName: `ArtMarketplaceStage-${exportSuffix}` });
+    new cdk.CfnOutput(this, 'Region', { value: region, description: 'AWS region', exportName: `ArtMarketplaceRegion-${exportSuffix}` });
     new cdk.CfnOutput(this, 'AppUrl', {
       value: appUrl,
       description: 'Application URL (CloudFront CDN or custom domain)',
-      exportName: 'ArtMarketplaceAppUrl',
+      exportName: `ArtMarketplaceAppUrl-${exportSuffix}`,
     });
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: httpApi.apiEndpoint,
       description: 'API Gateway URL (use for /api calls; put behind CloudFront or call directly)',
-      exportName: 'ArtMarketplaceApiUrl',
+      exportName: `ArtMarketplaceApiUrl-${exportSuffix}`,
     });
     new cdk.CfnOutput(this, 'PaintingsBucketName', {
       value: paintingsBucket.bucketName,
       description: 'S3 bucket for painting images',
-      exportName: 'ArtMarketplacePaintingsBucket',
+      exportName: `ArtMarketplacePaintingsBucket-${exportSuffix}`,
     });
     new cdk.CfnOutput(this, 'PaintingsTableName', {
       value: paintingsTable.tableName,
       description: 'DynamoDB table for paintings metadata',
-      exportName: 'ArtMarketplacePaintingsTable',
+      exportName: `ArtMarketplacePaintingsTable-${exportSuffix}`,
     });
     new cdk.CfnOutput(this, 'ArtifactsTableName', {
       value: artifactsTable.tableName,
       description: 'DynamoDB table for artifacts metadata',
-      exportName: 'ArtMarketplaceArtifactsTable',
+      exportName: `ArtMarketplaceArtifactsTable-${exportSuffix}`,
     });
+    new cdk.CfnOutput(this, 'ItemUploadsTableName', {
+      value: itemUploadsTable.tableName,
+      description: 'CQRS write table: user uploads (pictures, price, etc.); CDC to Lambda',
+      exportName: `ArtMarketplaceItemUploadsTable-${exportSuffix}`,
+    });
+    new cdk.CfnOutput(this, 'ItemsReadModelTableName', {
+      value: itemsReadModelTable.tableName,
+      description: 'CQRS read model: flattened, read-optimized (filled by Lambda)',
+      exportName: `ArtMarketplaceItemsReadModelTable-${exportSuffix}`,
+    });
+    new cdk.CfnOutput(this, 'UsersTableName', { value: usersTable.tableName, description: 'Users table (LokKala login)', exportName: `ArtMarketplaceUsersTable-${exportSuffix}` });
+    new cdk.CfnOutput(this, 'OrdersTableName', { value: ordersTable.tableName, description: 'Orders table', exportName: `ArtMarketplaceOrdersTable-${exportSuffix}` });
+    new cdk.CfnOutput(this, 'OrderStatusTableName', { value: orderStatusTable.tableName, description: 'Order status history', exportName: `ArtMarketplaceOrderStatusTable-${exportSuffix}` });
+    new cdk.CfnOutput(this, 'InventoryTableName', { value: inventoryTable.tableName, description: 'Inventory table', exportName: `ArtMarketplaceInventoryTable-${exportSuffix}` });
+    new cdk.CfnOutput(this, 'ShipmentsTableName', { value: shipmentsTable.tableName, description: 'Shipments table', exportName: `ArtMarketplaceShipmentsTable-${exportSuffix}` });
+    new cdk.CfnOutput(this, 'LokKalaApiPath', { value: `${httpApi.apiEndpoint}/api/lokkala`, description: 'LokKala BFF base URL', exportName: `ArtMarketplaceLokKalaApiPath-${exportSuffix}` });
+    new cdk.CfnOutput(this, 'OrdersApiPath', { value: `${httpApi.apiEndpoint}/api/orders`, description: 'Order Service base URL', exportName: `ArtMarketplaceOrdersApiPath-${exportSuffix}` });
     new cdk.CfnOutput(this, 'DbEndpoint', {
       value: dbInstance.dbInstanceEndpointAddress,
       description: 'RDS PostgreSQL endpoint (users, orders)',
-      exportName: 'ArtMarketplaceDbEndpoint',
+      exportName: `ArtMarketplaceDbEndpoint-${exportSuffix}`,
     });
     new cdk.CfnOutput(this, 'DbSecretArn', {
       value: dbInstance.secret?.secretArn ?? '',
       description: 'Secrets Manager ARN for DB credentials',
-      exportName: 'ArtMarketplaceDbSecretArn',
+      exportName: `ArtMarketplaceDbSecretArn-${exportSuffix}`,
     });
     new cdk.CfnOutput(this, 'RedisEndpoint', {
       value: redisCluster.attrRedisEndpointAddress,
       description: 'Redis (ElastiCache) endpoint for cache',
-      exportName: 'ArtMarketplaceRedisEndpoint',
+      exportName: `ArtMarketplaceRedisEndpoint-${exportSuffix}`,
     });
     new cdk.CfnOutput(this, 'InstanceId', {
       value: instance.instanceId,
       description: 'EC2 instance ID (app host)',
-      exportName: 'ArtMarketplaceInstanceId',
+      exportName: `ArtMarketplaceInstanceId-${exportSuffix}`,
     });
   }
 }

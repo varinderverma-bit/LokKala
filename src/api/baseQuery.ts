@@ -3,8 +3,22 @@ import { simulateApiCall } from './mockApiConfig';
 import { regions, artists, artItems } from './mockDb';
 import type { ArtListQuery, PaginatedResponse } from '@/types';
 import type { ArtItem } from '@/types';
+import { API_BASE_URL } from './config';
+import { realBaseQuery } from './realBaseQuery';
 
 export type MockBaseQueryArg = { type: string; [key: string]: unknown };
+
+/** Uses LokKala BFF for art list/artifact when VITE_API_BASE_URL is set (CDN image URLs); otherwise mock. */
+export const baseQuery: BaseQueryFn<
+  MockBaseQueryArg,
+  unknown,
+  { status?: number; data?: string }
+> = async (arg) => {
+  if (API_BASE_URL && (arg.type === 'getArtList' || arg.type === 'getArtById')) {
+    return realBaseQuery(arg as Parameters<typeof realBaseQuery>[0], {} as never, {} as never);
+  }
+  return mockBaseQuery(arg);
+};
 
 export const mockBaseQuery: BaseQueryFn<
   MockBaseQueryArg,
