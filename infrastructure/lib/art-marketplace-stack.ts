@@ -10,11 +10,20 @@ import * as apigatewayv2_integrations from 'aws-cdk-lib/aws-apigatewayv2-integra
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
+import * as route53 from 'aws-cdk-lib/aws-route53';
+import * as route53_targets from 'aws-cdk-lib/aws-route53-targets';
+import * as rds from 'aws-cdk-lib/aws-rds';
 import { Construct } from 'constructs';
 
 export class ArtMarketplaceStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
+
+    const domainName = this.node.tryGetContext('domainName') as string | undefined;
+    const certificateArn = this.node.tryGetContext('certificateArn') as string | undefined;
+    const hostedZoneId = this.node.tryGetContext('hostedZoneId') as string | undefined;
+    const hostedZoneName = this.node.tryGetContext('hostedZoneName') as string | undefined;
 
     // ─── VPC ─────────────────────────────────────────────────────────────────
     const vpc = new ec2.Vpc(this, 'ArtMarketplaceVpc', {
@@ -84,7 +93,45 @@ export class ArtMarketplaceStack extends cdk.Stack {
     ec2Sg.addIngressRule(albSg, ec2.Port.tcp(80), 'From ALB');
     redisSecurityGroup.addIngressRule(ec2Sg, ec2.Port.tcp(6379), 'From EC2');
 
-    // ─── IAM role for EC2 (S3, DynamoDB) ──────────────────────────────────────
+    // ─── RDS PostgreSQL (users, orders) ───────────────────────────────────────
+    const rdsSg = new ec2.SecurityGroup(this, 'RdsSg', {
+      vpc,
+      description: 'Security group for RDS PostgreSQL',
+      allowAllOutbound: false,
+    });
+    rdsSg.addIngressRule(ec2Sg, ec2.Port.tcp(5432), 'PostgreSQL from EC2');
+    rdsSg.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.allTcp());
+
+    const dbInstance = new rds.DatabaseInstance(this, 'PostgresDb', {
+      vpc,
+      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      securityGroups: [rdsSg],
+      engine: rds.DatabaseInstanceEngine.postgres({
+        version: rds.PostgresEngineVersion.VER_16,
+      }),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MICRO),
+      allocatedStorage: 20,
+      maxAllocatedStorage: 100,
+      databaseName: 'artmarketplace',
+      credentials: rds.Credentials.fromGeneratedSecret('postgres'),
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
+    });
+
+    // ─── DynamoDB table for artifacts metadata ────────────────────────────────
+    const artifactsTable = new dynamodb.Table(this, 'ArtifactsTable', {
+      partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'categoryId', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
+    });
+    artifactsTable.addGlobalSecondaryIndex({
+      indexName: 'categoryId-createdAt-index',
+      partitionKey: { name: 'categoryId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'createdAt', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    // ─── IAM role for EC2 (S3, DynamoDB, RDS secret) ──────────────────────────
     const ec2Role = new iam.Role(this, 'Ec2Role', {
       assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
       managedPolicies: [
@@ -93,6 +140,10 @@ export class ArtMarketplaceStack extends cdk.Stack {
     });
     paintingsBucket.grantReadWrite(ec2Role);
     paintingsTable.grantReadWriteData(ec2Role);
+    artifactsTable.grantReadWriteData(ec2Role);
+    if (dbInstance.secret) {
+      dbInstance.secret.grantRead(ec2Role);
+    }
 
     // ─── EC2 instance (app host) ─────────────────────────────────────────────
     const amzn2 = ec2.MachineImage.latestAmazonLinux2023({
@@ -179,6 +230,10 @@ export class ArtMarketplaceStack extends cdk.Stack {
 
     const s3Origin = new origins.S3Origin(paintingsBucket);
 
+    const cert = domainName && certificateArn
+      ? acm.Certificate.fromCertificateArn(this, 'Cert', certificateArn)
+      : undefined;
+
     const distribution = new cloudfront.Distribution(this, 'Distribution', {
       defaultBehavior: {
         origin: albOrigin,
@@ -200,15 +255,44 @@ export class ArtMarketplaceStack extends cdk.Stack {
         { httpStatus: 403, responseHttpStatus: 200, responsePagePath: '/index.html', ttl: cdk.Duration.seconds(0) },
       ],
       minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+      ...(domainName && cert
+        ? {
+            domainNames: [domainName],
+            certificate: cert,
+          }
+        : {}),
     });
+
+    if (domainName && hostedZoneId && hostedZoneName) {
+      const zone = route53.HostedZone.fromHostedZoneAttributes(this, 'Zone', {
+        hostedZoneId,
+        zoneName: hostedZoneName,
+      });
+      const recordName = domainName === hostedZoneName ? undefined : domainName.replace(`.${hostedZoneName}`, '');
+      new route53.ARecord(this, 'AliasRecord', {
+        zone,
+        recordName: recordName || undefined,
+        target: route53.RecordTarget.fromAlias(
+          new route53_targets.CloudFrontTarget(distribution)
+        ),
+      });
+      new route53.AaaaRecord(this, 'AliasRecordV6', {
+        zone,
+        recordName: recordName || undefined,
+        target: route53.RecordTarget.fromAlias(
+          new route53_targets.CloudFrontTarget(distribution)
+        ),
+      });
+    }
 
     // Allow CloudFront to reach the ALB (no OAC required for HTTP origin; for production use custom domain + HTTPS)
     // For HTTP origin from CF to ALB, we keep ALB on HTTP; in production you’d use HTTPS and OAC.
 
     // ─── Outputs ─────────────────────────────────────────────────────────────
+    const appUrl = domainName ? `https://${domainName}` : `https://${distribution.distributionDomainName}`;
     new cdk.CfnOutput(this, 'AppUrl', {
-      value: `https://${distribution.distributionDomainName}`,
-      description: 'Application URL (CloudFront CDN)',
+      value: appUrl,
+      description: 'Application URL (CloudFront CDN or custom domain)',
       exportName: 'ArtMarketplaceAppUrl',
     });
     new cdk.CfnOutput(this, 'ApiUrl', {
@@ -225,6 +309,21 @@ export class ArtMarketplaceStack extends cdk.Stack {
       value: paintingsTable.tableName,
       description: 'DynamoDB table for paintings metadata',
       exportName: 'ArtMarketplacePaintingsTable',
+    });
+    new cdk.CfnOutput(this, 'ArtifactsTableName', {
+      value: artifactsTable.tableName,
+      description: 'DynamoDB table for artifacts metadata',
+      exportName: 'ArtMarketplaceArtifactsTable',
+    });
+    new cdk.CfnOutput(this, 'DbEndpoint', {
+      value: dbInstance.dbInstanceEndpointAddress,
+      description: 'RDS PostgreSQL endpoint (users, orders)',
+      exportName: 'ArtMarketplaceDbEndpoint',
+    });
+    new cdk.CfnOutput(this, 'DbSecretArn', {
+      value: dbInstance.secret?.secretArn ?? '',
+      description: 'Secrets Manager ARN for DB credentials',
+      exportName: 'ArtMarketplaceDbSecretArn',
     });
     new cdk.CfnOutput(this, 'RedisEndpoint', {
       value: redisCluster.attrRedisEndpointAddress,
